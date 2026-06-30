@@ -1,176 +1,242 @@
-// KikiDhiv's Finds - Main JavaScript Functionality
+// ============================================
+// KikiDhiv's Finds - Premium JavaScript
+// ============================================
+
 (function () {
     'use strict';
 
-    // State management
-    let currentPlatform = 'all';
-    let currentCategory = 'all';
-
-    // DOM references
-    const productCards = document.querySelectorAll('.product-card');
-    const filterStatus = document.getElementById('filter-status');
-    const platformNavButtons = document.querySelectorAll('.platform-nav');
-    const categoryButtons = document.querySelectorAll('.cat-btn');
-    const html = document.documentElement;
-    const themeIconLight = document.getElementById('theme-icon-light');
-    const themeIconDark = document.getElementById('theme-icon-dark');
-    const marketplace = document.getElementById('marketplace');
-
-    // Theme management
-    function setThemeUI(isDark) {
-        if (isDark) {
-            html.classList.add('dark');
-            if (themeIconLight) {
-                themeIconLight.classList.add('hidden');
-                themeIconLight.classList.remove('block');
-            }
-            if (themeIconDark) {
-                themeIconDark.classList.remove('hidden');
-                themeIconDark.classList.add('block');
-            }
-            localStorage.setItem('theme', 'dark');
-        } else {
-            html.classList.remove('dark');
-            if (themeIconLight) {
-                themeIconLight.classList.remove('hidden');
-                themeIconLight.classList.add('block');
-            }
-            if (themeIconDark) {
-                themeIconDark.classList.add('hidden');
-                themeIconDark.classList.remove('block');
-            }
-            localStorage.setItem('theme', 'light');
-        }
-    }
-
-    // Initialize theme
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            setThemeUI(false);
-        } else if (savedTheme === 'dark') {
-            setThemeUI(true);
-        } else {
-            // Default to dark mode
-            setThemeUI(true);
-        }
-    }
-
-    // Expose toggleTheme globally
-    window.toggleTheme = function () {
-        const isDark = html.classList.contains('dark');
-        setThemeUI(!isDark);
+    // State Management
+    const state = {
+        currentPlatform: 'all',
+        currentCategory: 'all',
+        isDark: true
     };
 
-    // Platform filter UI update
-    function updatePlatformNavUI(platform) {
-        platformNavButtons.forEach((btn) => {
-            const btnId = btn.id;
-            if (!btnId) return;
+    // DOM Elements
+    const DOM = {
+        html: document.documentElement,
+        productCards: document.querySelectorAll('.product-card'),
+        filterStatus: document.getElementById('filter-status'),
+        noResults: document.getElementById('no-results'),
+        productGrid: document.getElementById('products'),
+        backToTop: document.getElementById('back-to-top'),
+        sunIcon: document.getElementById('sun-icon'),
+        moonIcon: document.getElementById('moon-icon'),
+        navButtons: document.querySelectorAll('[id^="nav-"]'),
+        categoryButtons: document.querySelectorAll('[id^="btn-"]'),
+        mobNavButtons: document.querySelectorAll('[id^="nav-mob-"]'),
+    };
 
-            // Extract platform from button ID
-            let btnPlatform = btnId.replace('nav-', '').replace('mob-', '');
+    // ============================================
+    // Theme Management
+    // ============================================
+    function initTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'light') {
+            setTheme(false);
+        } else if (savedTheme === 'dark') {
+            setTheme(true);
+        } else {
+            setTheme(prefersDark);
+        }
+    }
 
-            if (btnPlatform === platform || (platform === 'all' && btnPlatform === 'all')) {
-                btn.classList.add('text-pink-600', 'dark:text-pink-400', 'font-semibold');
-                btn.classList.remove('text-slate-500', 'dark:text-gray-400');
+    function setTheme(isDark) {
+        state.isDark = isDark;
+        
+        if (isDark) {
+            DOM.html.classList.add('dark');
+            DOM.sunIcon?.classList.remove('hidden');
+            DOM.moonIcon?.classList.add('hidden');
+        } else {
+            DOM.html.classList.remove('dark');
+            DOM.sunIcon?.classList.add('hidden');
+            DOM.moonIcon?.classList.remove('hidden');
+        }
+        
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    window.toggleTheme = function () {
+        setTheme(!state.isDark);
+    };
+
+    // ============================================
+    // UI Updates
+    // ============================================
+    function updateNavButtons(platform) {
+        // Desktop nav buttons
+        DOM.navButtons.forEach(btn => {
+            const btnPlatform = btn.id.replace('nav-', '');
+            if (btnPlatform === platform) {
+                btn.className = 'nav-btn-active px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300';
             } else {
-                btn.classList.remove('text-pink-600', 'dark:text-pink-400', 'font-semibold');
-                btn.classList.add('text-slate-500', 'dark:text-gray-400');
+                btn.className = 'nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300';
+            }
+        });
+
+        // Mobile nav buttons
+        DOM.mobNavButtons.forEach(btn => {
+            const btnPlatform = btn.id.replace('nav-mob-', '');
+            if (btnPlatform === platform) {
+                btn.className = 'nav-btn-mob-active flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300';
+            } else {
+                btn.className = 'nav-btn-mob flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all duration-300';
             }
         });
     }
 
-    // Category button UI update
-    function updateCategoryUI(category) {
-        categoryButtons.forEach((btn) => {
-            const btnCat = btn.id.replace('btn-', '');
-            if (btnCat === category) {
-                btn.className =
-                    'cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 dark:bg-white text-white dark:text-gray-900 shadow-md transition-all active:scale-95 cursor-pointer';
+    function updateCategoryButtons(category) {
+        DOM.categoryButtons.forEach(btn => {
+            const btnCategory = btn.id.replace('btn-', '');
+            if (btnCategory === category) {
+                btn.className = 'category-btn category-btn-active';
             } else {
-                btn.className =
-                    'cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer';
+                btn.className = 'category-btn';
             }
         });
     }
 
-    // Apply filters to product cards
+    function updateFilterStatus() {
+        let status = '';
+        if (state.currentPlatform === 'amazon') {
+            status = '📦 Showing Amazon products';
+        } else if (state.currentPlatform === 'meesho') {
+            status = '🛍️ Showing Meesho products';
+        } else {
+            status = '✨ Showing all products';
+        }
+
+        if (state.currentCategory !== 'all') {
+            status += ` in ${state.currentCategory.charAt(0).toUpperCase() + state.currentCategory.slice(1)}`;
+        }
+
+        if (DOM.filterStatus) {
+            DOM.filterStatus.textContent = status;
+        }
+    }
+
+    // ============================================
+    // Filter Logic
+    // ============================================
     function applyFilters() {
-        productCards.forEach((card) => {
-            const cardPlatform = card.getAttribute('data-platform');
-            const cardCategory = card.getAttribute('data-category');
+        let visibleCount = 0;
 
-            const platformMatch =
-                currentPlatform === 'all' || cardPlatform === currentPlatform;
-            const categoryMatch =
-                currentCategory === 'all' || cardCategory === currentCategory;
+        DOM.productCards.forEach(card => {
+            const cardPlatform = card.dataset.platform;
+            const cardCategory = card.dataset.category;
+
+            const platformMatch = state.currentPlatform === 'all' || cardPlatform === state.currentPlatform;
+            const categoryMatch = state.currentCategory === 'all' || cardCategory === state.currentCategory;
 
             if (platformMatch && categoryMatch) {
-                card.style.display = 'flex';
-                // Trigger reflow for animation
-                void card.offsetWidth;
-                card.classList.add('fade-in');
+                card.style.display = '';
+                card.style.animation = 'none';
+                card.offsetHeight; // Trigger reflow
+                card.style.animation = 'slideUp 0.5s ease-out';
+                visibleCount++;
             } else {
                 card.style.display = 'none';
-                card.classList.remove('fade-in');
             }
         });
 
-        // Update filter status text
-        if (filterStatus) {
-            if (currentPlatform === 'amazon') {
-                filterStatus.innerHTML = '📦 Showing Amazon Finds';
-            } else if (currentPlatform === 'meesho') {
-                filterStatus.innerHTML = '🛍️ Showing Meesho Finds';
-            } else {
-                filterStatus.innerHTML = '✨ Showing all platforms';
-            }
+        // Show/hide no results state
+        if (visibleCount === 0) {
+            DOM.noResults?.classList.remove('hidden');
+            DOM.productGrid.style.display = 'none';
+        } else {
+            DOM.noResults?.classList.add('hidden');
+            DOM.productGrid.style.display = '';
         }
+
+        updateFilterStatus();
     }
 
-    // Expose filter functions globally
     window.filterPlatform = function (platform) {
-        currentPlatform = platform;
-        updatePlatformNavUI(platform);
+        state.currentPlatform = platform;
+        updateNavButtons(platform);
         applyFilters();
-
-        // Smooth scroll to marketplace
-        if (marketplace) {
-            marketplace.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        
+        // Scroll to products
+        document.getElementById('products')?.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
     };
 
     window.filterCategory = function (category) {
-        currentCategory = category;
-        updateCategoryUI(category);
+        state.currentCategory = category;
+        updateCategoryButtons(category);
         applyFilters();
     };
 
-    // Initialize everything
-    function init() {
-        initTheme();
-        updatePlatformNavUI('all');
-        updateCategoryUI('all');
+    window.resetFilters = function () {
+        state.currentPlatform = 'all';
+        state.currentCategory = 'all';
+        updateNavButtons('all');
+        updateCategoryButtons('all');
         applyFilters();
+    };
 
-        // Add keyboard accessibility for filter buttons
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                const activeElement = document.activeElement;
-                if (activeElement && activeElement.classList.contains('platform-nav')) {
-                    e.preventDefault();
-                    activeElement.click();
-                }
-                if (activeElement && activeElement.classList.contains('cat-btn')) {
-                    e.preventDefault();
-                    activeElement.click();
-                }
+    // ============================================
+    // Back to Top
+    // ============================================
+    function handleScroll() {
+        if (DOM.backToTop) {
+            if (window.scrollY > 500) {
+                DOM.backToTop.classList.add('visible');
+            } else {
+                DOM.backToTop.classList.remove('visible');
             }
-        });
+        }
     }
 
-    // Run on DOM ready
+    window.scrollToTop = function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // ============================================
+    // Keyboard Navigation
+    // ============================================
+    function handleKeyboard(e) {
+        // Escape to reset filters
+        if (e.key === 'Escape') {
+            window.resetFilters();
+        }
+    }
+
+    // ============================================
+    // Initialize
+    // ============================================
+    function init() {
+        // Set initial theme
+        initTheme();
+
+        // Set initial UI states
+        updateNavButtons('all');
+        updateCategoryButtons('all');
+        applyFilters();
+
+        // Event listeners
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        document.addEventListener('keydown', handleKeyboard);
+
+        // Handle system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches);
+            }
+        });
+
+        // Initial scroll check
+        handleScroll();
+
+        console.log('✨ KikiDhiv\'s Finds - Ready!');
+    }
+
+    // Start when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
