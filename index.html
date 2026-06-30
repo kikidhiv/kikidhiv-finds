@@ -15,10 +15,8 @@
               'sans': ['Inter', 'system-ui', 'sans-serif'],
             },
             colors: {
-              'brand-bg': '#fcfaf8',
-              'brand-nav': '#eed6d1',
-              'brand-btn': '#485458',
-              'brand-text': '#1c1c1c',
+              'brand-bg': '#f8fafc',
+              'brand-text': '#0f172a',
             }
           },
         },
@@ -26,412 +24,511 @@
     </script>
     
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="bg-brand-bg text-brand-text antialiased">
 
-    <!-- Desktop Top Navigation -->
-    <nav class="hidden md:flex bg-brand-nav items-center justify-between px-8 py-3 w-full">
-        <div class="font-semibold tracking-wide text-lg uppercase">Shop Our Finds</div>
-        <div class="flex gap-6 text-sm font-medium">
-            <button onclick="filterCategory('all')" class="hover:opacity-70 transition-opacity">Home</button>
-            <button onclick="filterCategory('fashion')" class="hover:opacity-70 transition-opacity">Fashion</button>
-            <button onclick="filterCategory('beauty')" class="hover:opacity-70 transition-opacity">Beauty</button>
-            <button onclick="filterCategory('kids')" class="hover:opacity-70 transition-opacity">Kids</button>
-            <button onclick="filterCategory('toys')" class="hover:opacity-70 transition-opacity">Toys</button>
-            <button onclick="filterCategory('tech')" class="hover:opacity-70 transition-opacity">Tech</button>
+    <!-- Modern Sticky Glass Navigation -->
+    <nav class="hidden md:flex sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-gray-200/50 items-center justify-between px-8 py-4 w-full transition-all">
+        <div class="font-extrabold tracking-tight text-lg uppercase bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Shop Our Finds</div>
+        <div class="flex gap-8 text-sm font-semibold text-gray-600">
+            <button onclick="filterCategory('all')" class="hover:text-black transition-colors">Home</button>
+            <button onclick="filterCategory('fashion')" class="hover:text-black transition-colors">Fashion</button>
+            <button onclick="filterCategory('beauty')" class="hover:text-black transition-colors">Beauty</button>
+            <button onclick="filterCategory('kids')" class="hover:text-black transition-colors">Kids</button>
+            <button onclick="filterCategory('toys')" class="hover:text-black transition-colors">Toys</button>
+            <button onclick="filterCategory('tech')" class="hover:text-black transition-colors">Tech</button>
         </div>
         <div class="w-32"></div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         
         <!-- Profile Section -->
-        <div class="text-center max-w-lg mx-auto mb-10">
-            <div class="md:hidden font-semibold tracking-wide text-lg uppercase mb-6">Shop My Finds</div>
+         <div class="text-center max-w-xl mx-auto mb-12">
+            <div class="md:hidden font-extrabold tracking-tight text-xl uppercase mb-8 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Shop My Finds</div>
             
-            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-gray-200 overflow-hidden mb-4 shadow-sm border border-white">
-                <div class="w-full h-full bg-gradient-to-br from-pink-300 to-purple-400 flex items-center justify-center text-white text-2xl font-bold">K</div>
+            <!-- Updated Profile Image Container -->
+             <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full bg-white overflow-hidden mb-5 shadow-lg border-4 border-white relative group">
+                <img 
+                src="images/KikiDhiv.PNG" 
+                alt="KikiDhiv Profile" 
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                >
             </div>
             
-            <h1 class="font-bold text-lg sm:text-xl mb-1">@KikiDhiv</h1>
-            <p class="text-sm text-gray-500 mb-4">fashion / beauty / kids / tech</p>
             
-            <p class="text-sm sm:text-base text-gray-700 mb-6 leading-relaxed">
-                Sharing our favorite finds in fashion, beauty, tech, and home! 
-                Direct links to products I genuinely love and use. Click to shop!
+            <h1 class="font-bold text-xl sm:text-2xl mb-1 text-gray-900">@KikiDhiv</h1>
+            <p class="text-sm font-medium text-gray-400 mb-5 uppercase tracking-widest">Fashion • Beauty • Kids • Tech</p>
+            
+            <p class="text-base text-gray-600 mb-8 leading-relaxed">
+                Sharing our favorite finds in fashion, beauty, tech, and home! Direct links to products we genuinely love and use. Click to shop!
             </p>
             
-            <a href="https://instagram.com/kikidhiv" target="_blank" rel="noopener noreferrer" class="inline-block bg-brand-btn text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition-colors shadow-sm">
+            <a href="https://www.instagram.com/xyz/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-gray-900 text-white px-8 py-3 rounded-full text-sm font-semibold hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 Follow on Instagram
             </a>
         </div>
 
-        <!-- Pill Filters -->
-        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
-            <button onclick="filterCategory('all')" id="btn-all" class="category-btn category-btn-active">ALL</button>
-            <button onclick="filterCategory('fashion')" id="btn-fashion" class="category-btn">FASHION</button>
-            <button onclick="filterCategory('beauty')" id="btn-beauty" class="category-btn">BEAUTY</button>
-            <button onclick="filterCategory('kids')" id="btn-kids" class="category-btn">KIDS & STATIONERY</button>
-            <button onclick="filterCategory('toys')" id="btn-toys" class="category-btn">TOYS</button>
-            <button onclick="filterCategory('tech')" id="btn-tech" class="category-btn">TECH</button>
+        <!-- Modern Pill Filters -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <button onclick="filterCategory('all')" id="btn-all" class="category-btn category-btn-active">All</button>
+            <button onclick="filterCategory('fashion')" id="btn-fashion" class="category-btn">Fashion</button>
+            <button onclick="filterCategory('beauty')" id="btn-beauty" class="category-btn">Beauty</button>
+            <button onclick="filterCategory('kids')" id="btn-kids" class="category-btn">Kids & Stationery</button>
+            <button onclick="filterCategory('toys')" id="btn-toys" class="category-btn">Toys</button>
+            <button onclick="filterCategory('tech')" id="btn-tech" class="category-btn">Tech</button>
         </div>
 
-        <!-- Products Grid (2 columns on mobile, up to 5 columns on desktop) -->
-        <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
+        <!-- Products Grid -->
+        <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 sm:gap-8">
 
-            <!-- MEESHO PRODUCTS -->
-            <div class="product-card" data-category="fashion">
-                <div class="product-image">
-                    <img src="images/Rayon Green Flared Dress.avif" alt="Green Flared Dress" loading="lazy" onerror="this.src='https://placehold.co/400x500/e2e8f0/64748b'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Rayon Green Flared Dress</h2>
-                    <p class="product-brand">Meesho</p>
-                    <p class="product-desc">Comfortable rayon fabric, calf-length flared dress with sleeves.</p>
-                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320693?p_id=478735701&ext_id=7x0ytx&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
+            <!-- ==========================================
+                 TOP PICKS (Highly Recommend, Daily Use, Worth It) 
+                 ========================================== -->
 
-            <div class="product-card" data-category="fashion">
-                <div class="product-image">
-                    <img src="images/Floral Printed Kurti Set.avif" alt="Floral Kurti Set" loading="lazy" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <!-- Top Tags -->
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-emerald-700 uppercase tracking-wide">Highly Recommend</span>
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-purple-700 uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <!-- Bottom Tags -->
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/AHA BHA Underarm Roll-On.jpg" alt="Deodorant Roll-On" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">Floral Printed Kurti Set</h2>
-                    <p class="product-brand">Meesho</p>
-                    <p class="product-desc">Complete ethnic set featuring floral printed kurti, matching pant, and dupatta.</p>
-                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320649?p_id=610989326&ext_id=a3rmdq&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="fashion">
-                <div class="product-image">
-                    <img src="images/Floral Calf-Length Dress.avif" alt="Floral Calf-Length Dress" loading="lazy" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Floral Calf-Length Dress</h2>
-                    <p class="product-brand">Meesho</p>
-                    <p class="product-desc">Beautiful floral print calf-length dress. Lightweight and breezy.</p>
-                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320218?p_id=610592830&ext_id=a3j4fy&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <!-- KIDS ESSENTIALS -->
-            <div class="product-card" data-category="kids">
-                <div class="product-image">
-                    <img src="images/Oliveware Leak-Proof Lunch Box.jpg" alt="Oliveware Lunch Box" loading="lazy" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Oliveware Leak-Proof Lunch Box</h2>
-                    <p class="product-brand">Oliveware</p>
-                    <p class="product-desc">Spill-proof lunch box perfect for school. Keeps food fresh and secure.</p>
-                    <a href="https://www.amazon.in/dp/B0DBZTP8NL?&linkCode=ll2&tag=kikidhiv-21&linkId=92c41b6da4b556c4aea7dc8e4924ca2f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">AHA BHA Underarm Roll-On</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Alcohol-free fresh floral deodorant focused on clarifying skin textures smoothly.</p>
+                    <a href="https://www.amazon.in/dp/B0DVSNG7NC?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=549b0bccb31779ce8d405b3b0ffa4f5b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
             <div class="product-card" data-category="kids">
-                <div class="product-image">
-                    <img src="images/STRONG LIFE Tiffin Lunch Bag.jpg" alt="Tiffin Lunch Bag" loading="lazy" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-purple-700 uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Oliveware Leak-Proof Lunch Box.jpg" alt="Oliveware Lunch Box" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">STRONG LIFE Tiffin Lunch Bag</h2>
-                    <p class="product-brand">Strong Life</p>
-                    <p class="product-desc">Durable, spacious, and insulated to keep meals warm until lunchtime.</p>
-                    <a href="https://www.amazon.in/dp/B0GRJ4GCSG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=e885dc09ae1d96e33911301d41e47dc4&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="kids">
-                <div class="product-image">
-                    <img src="images/ALVERO Leak-Proof 1L Bottle.jpg" alt="Purple Water Bottle" loading="lazy" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">ALVERO Leak-Proof 1L Bottle</h2>
-                    <p class="product-brand">Alvero</p>
-                    <p class="product-desc">One-liter leak-proof water bottle. BPA-free and perfect for school hydration.</p>
-                    <a href="https://www.amazon.in/dp/B0H1JQG91M?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=e1a716ce25aaada5932e0b9628a51015&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Oliveware Leak-Proof Lunch Box</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Spill-proof lunch box perfect for school. Keeps food fresh and secure.</p>
+                    <a href="https://www.amazon.in/dp/B0DBZTP8NL?&linkCode=ll2&tag=kikidhiv-21&linkId=92c41b6da4b556c4aea7dc8e4924ca2f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
             <div class="product-card" data-category="kids">
-                <div class="product-image">
-                    <img src="images/Spiderman Pencil box.jpg" alt="Spiderman Pencil Box" loading="lazy" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-purple-700 uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/STRONG LIFE Tiffin Lunch Bag.jpg" alt="Tiffin Lunch Bag" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">Spiderman Magnetic Pencil Box</h2>
-                    <p class="product-brand">Amazon Find</p>
-                    <p class="product-desc">Fun themed magnetic pencil box. Durable and spacious for all stationery needs.</p>
-                    <a href="https://www.amazon.in/dp/B0GKVGKSR8?&linkCode=ll2&tag=kikidhiv-21&linkId=e9cd0834e9aba81a6251856a617412dd&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">STRONG LIFE Tiffin Lunch Bag</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Durable, spacious, and insulated to keep meals warm until lunchtime.</p>
+                    <a href="https://www.amazon.in/dp/B0GRJ4GCSG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=e885dc09ae1d96e33911301d41e47dc4&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
             <div class="product-card" data-category="kids">
-                <div class="product-image">
-                    <img src="images/Spiderman 2B Pencils.jpg" alt="Spiderman Pencils" loading="lazy" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-purple-700 uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/ALVERO Leak-Proof 1L Bottle.jpg" alt="Purple Water Bottle" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">Spiderman 2B Pencils (20 Pack)</h2>
-                    <p class="product-brand">Amazon Find</p>
-                    <p class="product-desc">High-quality 2B pencils with fun graphics. Perfect for writing and drawing.</p>
-                    <a href="https://www.amazon.in/dp/B0FDB91QMS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=99a0eb97acf817cb0b6e98a02d300813&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <!-- TOYS -->
-            <div class="product-card" data-category="toys">
-                <div class="product-image">
-                    <img src="images/Unicorn Slide with Basketball.jpg" alt="Unicorn Slide" loading="lazy" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Unicorn Slide with Basketball</h2>
-                    <p class="product-brand">Lifelong</p>
-                    <p class="product-desc">Adorable indoor/outdoor theme slide setup suitable for kids aged 2-7 years.</p>
-                    <a href="https://www.amazon.in/dp/B0G49DZHWK?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=89cfe7419b5338e9c0fbcf68562371d1&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">ALVERO Leak-Proof 1L Bottle</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">One-liter leak-proof water bottle. BPA-free and perfect for school hydration.</p>
+                    <a href="https://www.amazon.in/dp/B0H1JQG91M?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=e1a716ce25aaada5932e0b9628a51015&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
-            <div class="product-card" data-category="toys">
-                <div class="product-image">
-                    <img src="images/Dancing Cactus Recording Toy.jpg" alt="Dancing Cactus" loading="lazy" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
+            <div class="product-card" data-category="kids">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-purple-700 uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Spiderman Pencil box.jpg" alt="Spiderman Pencil Box" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">Dancing Cactus Recording Toy</h2>
-                    <p class="product-brand">VEBETO</p>
-                    <p class="product-desc">Interactive companion that records and repeats voice prompts with built-in LEDs.</p>
-                    <a href="https://www.amazon.in/dp/B09QCYZT4S?&linkCode=ll2&tag=kikidhiv-21&linkId=5e6c00dd2cdddf73adac337fa8e7eab9&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="toys">
-                <div class="product-image">
-                    <img src="images/Rechargeable Tornado Stunt Car.jpg" alt="Stunt Car" loading="lazy" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Rechargeable Tornado Stunt Car</h2>
-                    <p class="product-brand">Gooyo</p>
-                    <p class="product-desc">Remote-controlled stunt car with 360° rotation capabilities and playful music tracks.</p>
-                    <a href="https://amzn.to/4e5BbxI" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Spiderman Magnetic Pencil Box</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Fun themed magnetic pencil box. Durable and spacious for all stationery needs.</p>
+                    <a href="https://www.amazon.in/dp/B0GKVGKSR8?&linkCode=ll2&tag=kikidhiv-21&linkId=e9cd0834e9aba81a6251856a617412dd&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
-            <div class="product-card" data-category="toys">
-                <div class="product-image">
-                    <img src="images/Pop It Fidget Toy Pack.jpg" alt="Pop It Fidget Toy Set" loading="lazy" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Pop It Fidget Toy Pack</h2>
-                    <p class="product-brand">WudCraft</p>
-                    <p class="product-desc">Set of 2 silicone pop-it sensory toys shaped like a dinosaur and a unicorn.</p>
-                    <a href="https://www.amazon.in/dp/B0DTV7QTFB?&linkCode=ll2&tag=kikidhiv-21&linkId=cf167a731b9675ea6ff9f0fbb3a8bd7f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <!-- BEAUTY & LIFESTYLE -->
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Clear Quartz Lip Gloss.jpg" alt="Lip Gloss" loading="lazy" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Clear Quartz Lip Gloss</h2>
-                    <p class="product-brand">MARS</p>
-                    <p class="product-desc">Hydrating high-shine clear lip gloss formulation with a clean, weightless feel.</p>
-                    <a href="https://www.amazon.in/dp/B0BV6JGSDZ?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=1eb683a0457598731ec41d23db631e9c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Green Tea Makeup Wipes.jpg" alt="Makeup Wipes" loading="lazy" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Green Tea Makeup Wipes</h2>
-                    <p class="product-brand">MARS</p>
-                    <p class="product-desc">Soft cotton refreshing wipes infused with organic green tea extracts and aloe vera.</p>
-                    <a href="https://www.amazon.in/dp/B0CVS2HFKJ?&linkCode=ll2&tag=kikidhiv-21&linkId=1d563f8f88952b83260d293df4109f3d&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Blender Sponge & Puff Kit.jpg" alt="Makeup Sponge Set" loading="lazy" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Blender Sponge & Puff Kit</h2>
-                    <p class="product-brand">Amazon Find</p>
-                    <p class="product-desc">Premium reusable beauty sponge array complete with a specialized base cleanser.</p>
-                    <a href="https://www.amazon.in/dp/B0G7FKJJDC?&linkCode=ll2&tag=kikidhiv-21&linkId=4bf71ba8c981afbb506a80a8035bad9c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Photo Perfect HD Face Primer.jpg" alt="Face Primer" loading="lazy" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Photo Perfect HD Face Primer</h2>
-                    <p class="product-brand">Iba</p>
-                    <p class="product-desc">Matte pore-blurring foundation gel base. Certified 100% vegan.</p>
-                    <a href="https://www.amazon.in/dp/B07SDQJVQD?&linkCode=ll2&tag=kikidhiv-21&linkId=11d190bf9d059e37e11a6b493fe83ee8&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Hypercurl Waterproof Mascara.jpg" alt="Mascara" loading="lazy" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Hypercurl Waterproof Mascara</h2>
-                    <p class="product-brand">Maybelline</p>
-                    <p class="product-desc">High-pigment curling definition that stays completely waterproof all day long.</p>
-                    <a href="https://www.amazon.in/dp/B0079Z0AMM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=fb6c03159e20debdbaa8ed6da356acea&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Pure Skin Mattifying Compact.jpg" alt="Compact Powder" loading="lazy" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Pure Skin Mattifying Compact</h2>
-                    <p class="product-brand">Iba</p>
-                    <p class="product-desc">Oil-free setting compact face powder formulated with protective SPF 15 shield.</p>
-                    <a href="https://www.amazon.in/dp/B07D2Q52KF?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=a1ffdffec7400d5eb3717cc8a172355e&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Barrier Repair Tinted Lip Balm.jpg" alt="Lip Balm" loading="lazy" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Barrier Repair Tinted Lip Balm</h2>
-                    <p class="product-brand">Dot & Key</p>
-                    <p class="product-desc">Deep cherry crimson moisture repair treatment packed with intense SPF 50 filters.</p>
-                    <a href="https://www.amazon.in/dp/B0DCBGMDPS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b7347bcfb140b2ebe2881d690960be18&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/AHA BHA Underarm Roll-On.jpg" alt="Deodorant Roll-On" loading="lazy" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">AHA BHA Underarm Roll-On</h2>
-                    <p class="product-brand">Be Bodywise</p>
-                    <p class="product-desc">Alcohol-free fresh floral deodorant focused on clarifying skin textures smoothly.</p>
-                    <a href="https://www.amazon.in/dp/B0DVSNG7NC?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=549b0bccb31779ce8d405b3b0ffa4f5b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Waterproof Liquid Foundation.jpg" alt="Liquid Foundation" loading="lazy" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Waterproof Liquid Foundation</h2>
-                    <p class="product-brand">Iba</p>
-                    <p class="product-desc">Long-wear breathable waterproof liquid formulation delivering a seamless base finish.</p>
-                    <a href="https://www.amazon.in/dp/B09GFZRQ4P?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=be5c36ee51497a94ba9ce3aa38b178aa&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Waterproof Matte Concealer.jpg" alt="Matte Concealer" loading="lazy" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Waterproof Matte Concealer</h2>
-                    <p class="product-brand">Iba</p>
-                    <p class="product-desc">Full coverage matte treatment blend covering dark circles and spots perfectly.</p>
-                    <a href="https://www.amazon.in/dp/B09GFZ5VD4?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=5df91f7a7847de339094ca6fc44a141b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/All-in-One Face & Eye Palette.jpg" alt="All-in-One Palette" loading="lazy" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">All-in-One Face & Eye Palette</h2>
-                    <p class="product-brand">MARS</p>
-                    <p class="product-desc">Features 9 high-pigment eyeshadow segments matching highlighter and contour pans.</p>
-                    <a href="https://www.amazon.in/dp/B0C28GD8X3?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d00f05f8ac1af8c2398fd76e9685808c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Colossal Bold Liquid Liner.jpg" alt="Bold Liner" loading="lazy" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Colossal Bold Liquid Liner</h2>
-                    <p class="product-brand">Maybelline</p>
-                    <p class="product-desc">Deep dramatic carbon black glide-on definition structure application.</p>
-                    <a href="https://www.amazon.in/dp/B07S141T2R?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=467b2b773a4831e21e58ffa7b9bdea2b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Dewy Finish Setting Spray.jpg" alt="Setting Spray" loading="lazy" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Dewy Finish Setting Spray</h2>
-                    <p class="product-brand">Iba</p>
-                    <p class="product-desc">Refreshing finishing lock mist securing a luminous dewy finish setting seal look.</p>
-                    <a href="https://www.amazon.in/dp/B0CCJP6Y17?&linkCode=ll2&tag=kikidhiv-21&linkId=298fa6a7429b5f1e40afa1f7a414789f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Total Repair 5 Hair Serum.jpg" alt="Hair Serum" loading="lazy" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Total Repair 5 Hair Serum</h2>
-                    <p class="product-brand">L'Oreal Paris</p>
-                    <p class="product-desc">Smooth protective polishing fluid smoothing down frizz split strands immediately.</p>
-                    <a href="https://www.amazon.in/dp/B006LXC4SG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b227e0bbf873a391e06563a4e01b8339&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="beauty">
-                <div class="product-image">
-                    <img src="images/Electric Scalp Massager.jpg" alt="Scalp Massager" loading="lazy" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
-                </div>
-                <div class="product-info">
-                    <h2 class="product-title">Electric Scalp Massager</h2>
-                    <p class="product-brand">Beardo</p>
-                    <p class="product-desc">Relaxation massage tool tailored for easy home-spa routines and grooming care.</p>
-                    <a href="https://www.amazon.in/dp/B0DT693ZPM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=452d09e41d327e33f9c1cd767d5edf07&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
-                </div>
-            </div>
-
-            <!-- TECH / OTHER -->
             <div class="product-card" data-category="tech">
-                <div class="product-image">
-                    <img src="images/20-in-1 Device Cleaning Kit.jpg" alt="Cleaning Kit" loading="lazy" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-amber-600 uppercase tracking-wide">Worth It</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/20-in-1 Device Cleaning Kit.jpg" alt="Cleaning Kit" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
                 </div>
-                <div class="product-info">
-                    <h2 class="product-title">20-in-1 Device Cleaning Kit</h2>
-                    <p class="product-brand">Elfora</p>
-                    <p class="product-desc">Complete toolkit supporting keyboards, displays, charging docks, and general hardware logs.</p>
-                    <a href="https://www.amazon.in/dp/B0F3P1PZ9D?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=8368fae06fb5bd8a7970e4b151d4625d&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn">Shop Now</a>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">20-in-1 Device Cleaning Kit</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Complete toolkit supporting keyboards, displays, charging docks, and general hardware logs.</p>
+                    <a href="https://www.amazon.in/dp/B0F3P1PZ9D?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=8368fae06fb5bd8a7970e4b151d4625d&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-amber-600 uppercase tracking-wide">Worth It</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Electric Scalp Massager.jpg" alt="Scalp Massager" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Electric Scalp Massager</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Relaxation massage tool tailored for easy home-spa routines and grooming care.</p>
+                    <a href="https://www.amazon.in/dp/B0DT693ZPM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=452d09e41d327e33f9c1cd767d5edf07&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="toys">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm bg-white/95 backdrop-blur-md text-amber-600 uppercase tracking-wide">Worth It</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Unicorn Slide with Basketball.jpg" alt="Unicorn Slide" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Unicorn Slide with Basketball</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Adorable indoor/outdoor theme slide setup suitable for kids aged 2-7 years.</p>
+                    <a href="https://www.amazon.in/dp/B0G49DZHWK?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=89cfe7419b5338e9c0fbcf68562371d1&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 FASHION 
+                 ========================================== -->
+
+            <div class="product-card" data-category="fashion">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-pink-500/90 backdrop-blur-md text-white uppercase tracking-wide">Meesho</span>
+                    </div>
+                    <img src="images/Rayon Green Flared Dress.avif" alt="Green Flared Dress" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/e2e8f0/64748b'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Rayon Green Flared Dress</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Comfortable rayon fabric, calf-length flared dress with sleeves.</p>
+                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320693?p_id=478735701&ext_id=7x0ytx&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="fashion">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-pink-500/90 backdrop-blur-md text-white uppercase tracking-wide">Meesho</span>
+                    </div>
+                    <img src="images/Floral Printed Kurti Set.avif" alt="Floral Kurti Set" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Floral Printed Kurti Set</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Complete ethnic set featuring floral printed kurti, matching pant, and dupatta.</p>
+                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320649?p_id=610989326&ext_id=a3rmdq&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="fashion">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-pink-500/90 backdrop-blur-md text-white uppercase tracking-wide">Meesho</span>
+                    </div>
+                    <img src="images/Floral Calf-Length Dress.avif" alt="Floral Calf-Length Dress" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Floral Calf-Length Dress</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Beautiful floral print calf-length dress. Lightweight and breezy.</p>
+                    <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320218?p_id=610592830&ext_id=a3j4fy&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 BEAUTY & LIFESTYLE 
+                 ========================================== -->
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Clear Quartz Lip Gloss.jpg" alt="Lip Gloss" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Clear Quartz Lip Gloss</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Hydrating high-shine clear lip gloss formulation with a clean, weightless feel.</p>
+                    <a href="https://www.amazon.in/dp/B0BV6JGSDZ?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=1eb683a0457598731ec41d23db631e9c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Green Tea Makeup Wipes.jpg" alt="Makeup Wipes" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Green Tea Makeup Wipes</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Soft cotton refreshing wipes infused with organic green tea extracts and aloe vera.</p>
+                    <a href="https://www.amazon.in/dp/B0CVS2HFKJ?&linkCode=ll2&tag=kikidhiv-21&linkId=1d563f8f88952b83260d293df4109f3d&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Blender Sponge & Puff Kit.jpg" alt="Makeup Sponge Set" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Blender Sponge & Puff Kit</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Premium reusable beauty sponge array complete with a specialized base cleanser.</p>
+                    <a href="https://www.amazon.in/dp/B0G7FKJJDC?&linkCode=ll2&tag=kikidhiv-21&linkId=4bf71ba8c981afbb506a80a8035bad9c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Photo Perfect HD Face Primer.jpg" alt="Face Primer" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Photo Perfect HD Face Primer</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Matte pore-blurring foundation gel base. Certified 100% vegan.</p>
+                    <a href="https://www.amazon.in/dp/B07SDQJVQD?&linkCode=ll2&tag=kikidhiv-21&linkId=11d190bf9d059e37e11a6b493fe83ee8&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Hypercurl Waterproof Mascara.jpg" alt="Mascara" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Hypercurl Waterproof Mascara</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">High-pigment curling definition that stays completely waterproof all day long.</p>
+                    <a href="https://www.amazon.in/dp/B0079Z0AMM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=fb6c03159e20debdbaa8ed6da356acea&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Pure Skin Mattifying Compact.jpg" alt="Compact Powder" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Pure Skin Mattifying Compact</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Oil-free setting compact face powder formulated with protective SPF 15 shield.</p>
+                    <a href="https://www.amazon.in/dp/B07D2Q52KF?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=a1ffdffec7400d5eb3717cc8a172355e&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Barrier Repair Tinted Lip Balm.jpg" alt="Lip Balm" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Barrier Repair Tinted Lip Balm</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Deep cherry crimson moisture repair treatment packed with intense SPF 50 filters.</p>
+                    <a href="https://www.amazon.in/dp/B0DCBGMDPS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b7347bcfb140b2ebe2881d690960be18&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Waterproof Liquid Foundation.jpg" alt="Liquid Foundation" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Waterproof Liquid Foundation</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Long-wear breathable waterproof liquid formulation delivering a seamless base finish.</p>
+                    <a href="https://www.amazon.in/dp/B09GFZRQ4P?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=be5c36ee51497a94ba9ce3aa38b178aa&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Waterproof Matte Concealer.jpg" alt="Matte Concealer" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Waterproof Matte Concealer</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Full coverage matte treatment blend covering dark circles and spots perfectly.</p>
+                    <a href="https://www.amazon.in/dp/B09GFZ5VD4?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=5df91f7a7847de339094ca6fc44a141b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/All-in-One Face & Eye Palette.jpg" alt="All-in-One Palette" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">All-in-One Face & Eye Palette</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Features 9 high-pigment eyeshadow segments matching highlighter and contour pans.</p>
+                    <a href="https://www.amazon.in/dp/B0C28GD8X3?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d00f05f8ac1af8c2398fd76e9685808c&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Colossal Bold Liquid Liner.jpg" alt="Bold Liner" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/f3e8ff/7c3aed'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Colossal Bold Liquid Liner</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Deep dramatic carbon black glide-on definition structure application.</p>
+                    <a href="https://www.amazon.in/dp/B07S141T2R?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=467b2b773a4831e21e58ffa7b9bdea2b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Dewy Finish Setting Spray.jpg" alt="Setting Spray" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Dewy Finish Setting Spray</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Refreshing finishing lock mist securing a luminous dewy finish setting seal look.</p>
+                    <a href="https://www.amazon.in/dp/B0CCJP6Y17?&linkCode=ll2&tag=kikidhiv-21&linkId=298fa6a7429b5f1e40afa1f7a414789f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Total Repair 5 Hair Serum.jpg" alt="Hair Serum" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Total Repair 5 Hair Serum</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Smooth protective polishing fluid smoothing down frizz split strands immediately.</p>
+                    <a href="https://www.amazon.in/dp/B006LXC4SG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b227e0bbf873a391e06563a4e01b8339&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 REMAINING TOYS & KIDS 
+                 ========================================== -->
+
+            <div class="product-card" data-category="kids">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Spiderman 2B Pencils.jpg" alt="Spiderman Pencils" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fee2e2/991b1b'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Spiderman 2B Pencils (20 Pack)</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">High-quality 2B pencils with fun graphics. Perfect for writing and drawing.</p>
+                    <a href="https://www.amazon.in/dp/B0FDB91QMS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=99a0eb97acf817cb0b6e98a02d300813&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="toys">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Dancing Cactus Recording Toy.jpg" alt="Dancing Cactus" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dcfce7/166534'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Dancing Cactus Recording Toy</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Interactive companion that records and repeats voice prompts with built-in LEDs.</p>
+                    <a href="https://www.amazon.in/dp/B09QCYZT4S?&linkCode=ll2&tag=kikidhiv-21&linkId=5e6c00dd2cdddf73adac337fa8e7eab9&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="toys">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Rechargeable Tornado Stunt Car.jpg" alt="Stunt Car" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/dbeafe/1e40af'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Rechargeable Tornado Stunt Car</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Remote-controlled stunt car with 360° rotation capabilities and playful music tracks.</p>
+                    <a href="https://amzn.to/4e5BbxI" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="toys">
+                <div class="product-image relative group overflow-hidden bg-gray-100 rounded-2xl">
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md bg-gray-900/90 backdrop-blur-md text-white uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <img src="images/Pop It Fidget Toy Pack.jpg" alt="Pop It Fidget Toy Set" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title text-gray-900 font-bold text-sm">Pop It Fidget Toy Pack</h2>
+                    <p class="product-desc text-xs text-gray-500 mt-1.5 line-clamp-2">Set of 2 silicone pop-it sensory toys shaped like a dinosaur and a unicorn.</p>
+                    <a href="https://www.amazon.in/dp/B0DTV7QTFB?&linkCode=ll2&tag=kikidhiv-21&linkId=cf167a731b9675ea6ff9f0fbb3a8bd7f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
 
         </div>
 
         <!-- No Results Found Status Container -->
-        <div id="no-results" class="hidden text-center py-16">
+        <div id="no-results" class="hidden text-center py-20">
             <h3 class="text-xl font-bold text-gray-900 mb-2">No products found</h3>
             <p class="text-gray-500 text-sm">Try adjusting your category selection views above.</p>
-            <button onclick="resetFilters()" class="mt-4 px-6 py-2 bg-brand-btn text-white rounded-lg text-sm">Clear Selection</button>
+            <button onclick="resetFilters()" class="mt-6 px-8 py-2.5 bg-gray-900 text-white rounded-full text-sm hover:bg-gray-800 transition-colors">Clear Selection</button>
         </div>
     </main>
 
-    <footer class="mt-16 py-8 text-center text-xs text-gray-400 border-t border-gray-200">
+    <footer class="mt-20 py-10 text-center text-xs text-gray-400 border-t border-gray-200/60 bg-white">
         <p>As an Amazon Associate and affiliate partner, I earn from qualifying store checkouts.</p>
         <p class="mt-2">&copy; 2026 KikiDhiv's Finds. All rights reserved.</p>
     </footer>
