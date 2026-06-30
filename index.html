@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>KikiDhiv's Finds | Curated Lifestyle Shop</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-[#0b0f19] dark:text-gray-100 antialiased min-h-screen selection:bg-pink-500 selection:text-white transition-colors duration-300">
+
+    <!-- Top disclosure bar -->
+    <div class="bg-slate-200/80 dark:bg-gray-900/70 border-b border-slate-300 dark:border-gray-800/50 text-center py-2 px-4 text-[11px] sm:text-xs text-slate-600 dark:text-gray-400 transition-colors">
+        <p>💡 <strong>Transparency Disclosure:</strong> Some links are affiliate links. If you purchase, we may earn a small commission at no extra cost to you.</p>
+    </div>
+
+    <!-- Sticky navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-xl bg-white/75 dark:bg-[#0b0f19]/75 border-b border-slate-200 dark:border-gray-800/60 transition-colors shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center font-bold text-white shadow-lg shadow-pink-500/30">
+                    K
+                </div>
+                <span class="font-bold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">KikiDhiv's Finds</span>
+            </div>
+            
+            <!-- Desktop platform filters -->
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <button onclick="filterPlatform('amazon')" id="nav-amazon" class="platform-nav text-slate-500 dark:text-gray-400 hover:text-orange-500 transition-colors cursor-pointer">Amazon</button>
+                <button onclick="filterPlatform('meesho')" id="nav-meesho" class="platform-nav text-slate-500 dark:text-gray-400 hover:text-pink-500 transition-colors cursor-pointer">Meesho</button>
+                <button onclick="filterPlatform('all')" id="nav-all" class="platform-nav text-pink-600 dark:text-pink-400 font-semibold cursor-pointer">All Platforms</button>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button onclick="toggleTheme()" class="p-2 rounded-full bg-slate-100 dark:bg-gray-800/80 text-slate-700 dark:text-gray-300 hover:bg-slate-200 dark:hover:bg-gray-700 transition-all active:scale-95 cursor-pointer" aria-label="Toggle dark mode">
+                    <svg id="theme-icon-light" class="hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-icon-dark" class="block w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <a href="https://instagram.com/kikidhiv" target="_blank" class="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:opacity-90 transition-all shadow-md shadow-pink-500/20 active:scale-95">
+                    @kikidhiv
+                </a>
+            </div>
+        </div>
+        <!-- Mobile platform filter row -->
+        <div class="md:hidden flex items-center gap-4 px-4 pb-3 text-xs font-medium border-b border-slate-100 dark:border-gray-800/40">
+            <button onclick="filterPlatform('amazon')" id="nav-mob-amazon" class="platform-nav text-slate-500 dark:text-gray-400 py-1">Amazon</button>
+            <button onclick="filterPlatform('meesho')" id="nav-mob-meesho" class="platform-nav text-slate-500 dark:text-gray-400 py-1">Meesho</button>
+            <button onclick="filterPlatform('all')" id="nav-mob-all" class="platform-nav text-pink-600 dark:text-pink-400 font-semibold py-1">All</button>
+        </div>
+    </nav>
+
+    <!-- Hero header -->
+    <header class="relative overflow-hidden pt-16 pb-12 lg:pt-24 lg:pb-20">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.1),transparent_40%)] dark:bg-[radial-gradient(circle_at_top_right,rgba(236,72,153,0.18),transparent_50%)]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white dark:bg-gray-900 text-pink-600 dark:text-pink-400 border border-slate-200 dark:border-gray-800 mb-6 shadow-sm">
+                ✨ Handpicked Favorites
+            </span>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white max-w-3xl mx-auto leading-[1.15]">
+                Products we genuinely <span class="bg-gradient-to-r from-pink-500 to-purple-500 dark:from-pink-400 dark:to-purple-400 bg-clip-text text-transparent">use and love.</span>
+            </h1>
+            <p class="mt-6 text-base sm:text-lg text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Tap to shop your next must-have! Curated lifestyle, fashion, and tech picks from our Instagram stories.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main marketplace content -->
+    <main id="marketplace" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-mt-20">
+        
+        <!-- Category filters + status -->
+        <div id="categories" class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-gray-800/80 pb-6 mb-8 transition-colors">
+            <div class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('all')" id="btn-all" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 dark:bg-white text-white dark:text-gray-900 shadow-md transition-all active:scale-95 cursor-pointer">All</button>
+                <button onclick="filterCategory('women')" id="btn-women" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer">Women</button>
+                <button onclick="filterCategory('men')" id="btn-men" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer">Men</button>
+                <button onclick="filterCategory('couple')" id="btn-couple" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer">Couple</button>
+                <button onclick="filterCategory('kids')" id="btn-kids" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer">Kids</button>
+                <button onclick="filterCategory('tech')" id="btn-tech" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-gray-900/60 text-slate-700 dark:text-gray-400 border border-slate-200 dark:border-gray-800 hover:bg-slate-50 dark:hover:bg-gray-800 transition-all active:scale-95 cursor-pointer">Tech</button>
+            </div>
+            <div id="filter-status" class="text-xs font-semibold text-pink-600 dark:text-pink-400 bg-pink-50 dark:bg-pink-500/10 px-3 py-1.5 rounded-lg border border-pink-100 dark:border-pink-500/20">
+                ✨ Showing all platforms
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="product-grid">
+            
+            <!-- Product Card 1: Women / Meesho -->
+            <div class="product-card group relative bg-white dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 rounded-3xl overflow-hidden flex flex-col transition-all duration-300 hover:border-pink-500/60 hover:shadow-2xl hover:shadow-pink-500/10 hover:-translate-y-1.5" data-category="women" data-platform="meesho">
+                <div class="h-64 w-full overflow-hidden bg-slate-100 dark:bg-gray-800 relative">
+                    <img src="https://suratikart.com/cdn/shop/files/kb-268yellow_4.jpg?v=1734763919" alt="Yellow Floral Anarkali" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div class="p-5 flex flex-col flex-1 justify-between bg-white dark:bg-gray-900/50 backdrop-blur-sm">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold bg-pink-100 dark:bg-pink-500/10 text-pink-700 dark:text-pink-400 rounded-lg border border-pink-200 dark:border-pink-500/20">Meesho</span>
+                            <span class="text-xs text-slate-500 dark:text-gray-400 font-medium bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">Women</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors leading-snug">Yellow Floral Print Georgette Anarkali</h3>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-gray-800/60 border border-slate-100 dark:border-gray-700/50 p-2.5 rounded-xl">
+                            <span class="text-pink-500">⚡</span>
+                            <p class="text-[11px] font-medium text-slate-600 dark:text-gray-300 leading-tight">Live prices & flash discounts on the app.</p>
+                        </div>
+                        <a href="https://www.meesho.com/af_invite/47638213:instagram_stories:4320693?p_id=478735701&ext_id=7x0ytx&utm_source=instagram_stories" target="_blank" rel="noopener noreferrer nofollow" class="btn-shine flex w-full items-center justify-center px-4 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-pink-600 to-fuchsia-600 text-white shadow-lg shadow-pink-500/25 active:scale-[0.98] transition-transform">
+                            Shop on Meesho
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2: Tech / Amazon -->
+            <div class="product-card group relative bg-white dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 rounded-3xl overflow-hidden flex flex-col transition-all duration-300 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-1.5" data-category="tech" data-platform="amazon">
+                <div class="h-64 w-full overflow-hidden bg-white dark:bg-white flex items-center justify-center p-6 relative">
+                    <img src="http://baseusindiaofficial.com/cdn/shop/files/0_6_9c3cf381-bb45-4b67-98b2-306944f47382.jpg?v=1732013373" alt="Mini Magnetic Power Bank" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-5 flex flex-col flex-1 justify-between bg-white dark:bg-gray-900/50 backdrop-blur-sm">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 rounded-lg border border-orange-200 dark:border-orange-500/20">Amazon</span>
+                            <span class="text-xs text-slate-500 dark:text-gray-400 font-medium bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">Tech</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-snug">Elfora Electronic 20 in 1 Cleaning Kit | Multifunction Tool Kit </h3>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-gray-800/60 border border-slate-100 dark:border-gray-700/50 p-2.5 rounded-xl">
+                            <span class="text-orange-500">⭐</span>
+                            <p class="text-[11px] font-medium text-slate-600 dark:text-gray-300 leading-tight">Check stock & delivery on Amazon.</p>
+                        </div>
+                        <a href="https://www.amazon.in/dp/B0F3P1PZ9D?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=8368fae06fb5bd8a7970e4b151d4625d&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="btn-shine flex w-full items-center justify-center px-4 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25 active:scale-[0.98] transition-transform">
+                            View on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3: Couple / Amazon -->
+            <div class="product-card group relative bg-white dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 rounded-3xl overflow-hidden flex flex-col transition-all duration-300 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-1.5" data-category="couple" data-platform="amazon">
+                <div class="h-64 w-full overflow-hidden bg-slate-100 dark:bg-gray-800 relative">
+                    <img src="https://www.royalexport.in/product-img/ethnic-indian-couple-wear-kurt-1749028385.jpg" alt="Couple Matching Ethnic Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 object-top">
+                </div>
+                <div class="p-5 flex flex-col flex-1 justify-between bg-white dark:bg-gray-900/50 backdrop-blur-sm">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 rounded-lg border border-orange-200 dark:border-orange-500/20">Amazon</span>
+                            <span class="text-xs text-slate-500 dark:text-gray-400 font-medium bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">Couple</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors leading-snug">Matching Silk Ethnic Couple Wear</h3>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-gray-800/60 border border-slate-100 dark:border-gray-700/50 p-2.5 rounded-xl">
+                            <span class="text-orange-500">🧡</span>
+                            <p class="text-[11px] font-medium text-slate-600 dark:text-gray-300 leading-tight">Perfect for festivals & weddings.</p>
+                        </div>
+                        <a href="https://www.amazon.in/" target="_blank" rel="noopener noreferrer nofollow" class="btn-shine flex w-full items-center justify-center px-4 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25 active:scale-[0.98] transition-transform">
+                            Shop on Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4: Men / Meesho -->
+            <div class="product-card group relative bg-white dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 rounded-3xl overflow-hidden flex flex-col transition-all duration-300 hover:border-pink-500/50 hover:shadow-2xl hover:shadow-pink-500/10 hover:-translate-y-1.5" data-category="men" data-platform="meesho">
+                <div class="h-64 w-full overflow-hidden bg-slate-100 dark:bg-gray-800 relative">
+                    <img src="https://images.meesho.com/images/products/442798243/8tq4l_512.webp" alt="Men's Linen Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-5 flex flex-col flex-1 justify-between bg-white dark:bg-gray-900/50">
+                    <div>
+                        <div class="flex justify-between mb-3"><span class="px-2.5 py-1 text-[10px] uppercase font-bold bg-pink-100 dark:bg-pink-500/10 text-pink-700 dark:text-pink-400 rounded-lg">Meesho</span><span class="text-xs bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">Men</span></div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-pink-600 transition-colors">Slim Fit Cotton Linen Shirt</h3>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-gray-800/60 p-2.5 rounded-xl"><span class="text-pink-500">✨</span><p class="text-[11px] font-medium text-slate-600 dark:text-gray-300">Trending summer essential.</p></div>
+                        <a href="#" class="btn-shine flex w-full justify-center px-4 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-pink-600 to-fuchsia-600 text-white shadow-lg active:scale-[0.98] transition-transform">Buy on Meesho</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 5: Kids / Amazon -->
+            <div class="product-card group relative bg-white dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 rounded-3xl overflow-hidden flex flex-col transition-all duration-300 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-1.5" data-category="kids" data-platform="amazon">
+                <div class="h-64 w-full overflow-hidden bg-slate-100 dark:bg-gray-800 relative">
+                    <img src="https://m.media-amazon.com/images/I/71hFqO2RHKL._AC_UY1100_.jpg" alt="Kids Festive Wear" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-5 flex flex-col flex-1 justify-between bg-white dark:bg-gray-900/50">
+                    <div>
+                        <div class="flex justify-between mb-3"><span class="px-2.5 py-1 text-[10px] uppercase font-bold bg-orange-100 dark:bg-orange-500/10 text-orange-700 dark:text-orange-400 rounded-lg">Amazon</span><span class="text-xs bg-slate-100 dark:bg-gray-800 px-2 py-1 rounded-md">Kids</span></div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-orange-600 transition-colors">Boys' Festive Kurta Pajama Set</h3>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2.5 bg-slate-50 dark:bg-gray-800/60 p-2.5 rounded-xl"><span class="text-orange-500">🎉</span><p class="text-[11px] font-medium text-slate-600 dark:text-gray-300">Adorable traditional wear.</p></div>
+                        <a href="#" class="btn-shine flex w-full justify-center px-4 py-3.5 text-sm font-bold rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg active:scale-[0.98] transition-transform">View on Amazon</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-slate-100 dark:bg-[#0b0f19] border-t border-slate-200 dark:border-gray-800/60 mt-16 py-10 text-xs text-slate-500 dark:text-gray-500 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-800 dark:text-gray-300">KikiDhiv's Finds © 2026</span>
+                <span>• Curated with ❤️</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
