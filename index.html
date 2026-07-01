@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>KikiDhiv's Finds | Curated Shopping</title>
     
-    <!-- Tailwind CSS with dark mode class strategy -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -15,10 +14,6 @@
             fontFamily: {
               'sans': ['Inter', 'system-ui', 'sans-serif'],
             },
-            colors: {
-              'brand-bg': '#f8fafc',
-              'brand-text': '#0f172a',
-            }
           },
         },
       }
@@ -26,281 +21,25 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Unified Styles (Light & Dark) -->
-    <style>
-        /* ============================================
-           BASE & THEME VARIABLES
-           ============================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        /* Light mode defaults (when .dark is not present on html) */
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --border-light: rgba(0, 0, 0, 0.02);
-            --border-medium: #e2e8f0;
-            --shadow-sm: 0 2px 10px rgba(0,0,0,0.02);
-            --shadow-card: 0 4px 24px rgba(0,0,0,0.04);
-            --shadow-card-hover: 0 12px 32px rgba(0,0,0,0.08);
-            --btn-bg: #f1f5f9;
-            --btn-text: #0f172a;
-            --btn-hover-bg: #0f172a;
-            --btn-hover-text: #ffffff;
-            --nav-bg: rgba(255,255,255,0.7);
-            --nav-border: rgba(0,0,0,0.05);
-            --footer-text: #94a3b8;
-            --footer-border: rgba(0,0,0,0.06);
-            --tag-bg: rgba(255,255,255,0.95);
-            --gradient-start: #111827;
-            --gradient-end: #4b5563;
-        }
-
-        /* Dark mode overrides */
-        .dark {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --text-muted: #64748b;
-            --border-light: rgba(255,255,255,0.03);
-            --border-medium: #334155;
-            --shadow-sm: 0 2px 10px rgba(0,0,0,0.2);
-            --shadow-card: 0 4px 24px rgba(0,0,0,0.3);
-            --shadow-card-hover: 0 12px 32px rgba(0,0,0,0.4);
-            --btn-bg: #334155;
-            --btn-text: #f1f5f9;
-            --btn-hover-bg: #f8fafc;
-            --btn-hover-text: #0f172a;
-            --nav-bg: rgba(15, 23, 42, 0.8);
-            --nav-border: rgba(255,255,255,0.08);
-            --footer-text: #64748b;
-            --footer-border: rgba(255,255,255,0.08);
-            --tag-bg: rgba(30, 41, 59, 0.9);
-            --gradient-start: #f8fafc;
-            --gradient-end: #94a3b8;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        /* Category Pill Buttons */
-        .category-btn {
-            padding: 8px 20px;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 600;
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-medium);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
-            backdrop-filter: blur(4px);
-        }
-
-        .category-btn:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--text-muted);
-            color: var(--text-primary);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .category-btn-active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-        }
-
-        .category-btn-active:hover {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            opacity: 0.9;
-        }
-
-        /* Product Cards */
-        .product-card {
-            display: flex;
-            flex-direction: column;
-            padding: 14px;
-            background: var(--bg-secondary);
-            border-radius: 24px;
-            box-shadow: var(--shadow-card);
-            border: 1px solid var(--border-light);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
-            animation: fadeIn 0.5s ease-out;
-            color: var(--text-primary);
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-card-hover);
-        }
-
-        .product-image {
-            width: 100%;
-            aspect-ratio: 4/5;
-            background: var(--bg-tertiary);
-        }
-
-        .product-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-
-        .product-title {
-            line-height: 1.4;
-            color: var(--text-primary);
-        }
-
-        .product-desc {
-            color: var(--text-secondary);
-        }
-
-        /* Bottom Shop Button */
-        .product-btn {
-            margin-top: auto;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            font-size: 13px;
-            font-weight: 600;
-            padding: 10px 24px;
-            border-radius: 9999px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            width: fit-content;
-            border: 1px solid transparent;
-        }
-
-        .product-btn:hover {
-            background: var(--btn-hover-bg);
-            color: var(--btn-hover-text);
-            border-color: var(--btn-hover-bg);
-        }
-
-        /* Tag adjustments for dark mode readability */
-        .tag-highlight {
-            background: var(--tag-bg);
-            backdrop-filter: blur(8px);
-            color: #065f46; /* Keep emerald tone but readable */
-        }
-        .dark .tag-highlight {
-            color: #6ee7b7;
-        }
-        .tag-daily {
-            background: var(--tag-bg);
-            backdrop-filter: blur(8px);
-            color: #6b21a8;
-        }
-        .dark .tag-daily {
-            color: #c084fc;
-        }
-        .tag-worth {
-            background: var(--tag-bg);
-            backdrop-filter: blur(8px);
-            color: #b45309;
-        }
-        .dark .tag-worth {
-            color: #fbbf24;
-        }
-        .tag-store {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(8px);
-            color: white;
-        }
-        .dark .tag-store {
-            background: rgba(255,255,255,0.15);
-            color: #f1f5f9;
-        }
-        .tag-meesho {
-            background: rgba(236, 72, 153, 0.9);
-            backdrop-filter: blur(8px);
-            color: white;
-        }
-
-        /* Nav & Footer */
-        .nav-glass {
-            background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--nav-border);
-        }
-        footer {
-            color: var(--footer-text);
-            border-top: 1px solid var(--footer-border);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-
-        /* Toggle button styling */
-        #theme-toggle {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-medium);
-            color: var(--text-primary);
-            transition: all 0.2s ease;
-        }
-        #theme-toggle:hover {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="script.js" defer></script>
 </head>
-<body class="bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
+<body>
 
-    <!-- Modern Sticky Glass Navigation with Theme Toggle -->
-    <nav class="hidden md:flex sticky top-0 z-50 nav-glass items-center justify-between px-8 py-4 w-full transition-all">
-        <div class="font-extrabold tracking-tight text-lg uppercase bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 bg-clip-text text-transparent">Shop Our Finds</div>
-        <div class="flex gap-8 text-sm font-semibold text-gray-600 dark:text-gray-300">
-            <button onclick="filterCategory('all')" class="hover:text-black dark:hover:text-white transition-colors">Home</button>
-            <button onclick="filterCategory('fashion')" class="hover:text-black dark:hover:text-white transition-colors">Fashion</button>
-            <button onclick="filterCategory('beauty')" class="hover:text-black dark:hover:text-white transition-colors">Beauty</button>
-            <button onclick="filterCategory('kids')" class="hover:text-black dark:hover:text-white transition-colors">Kids</button>
-            <button onclick="filterCategory('toys')" class="hover:text-black dark:hover:text-white transition-colors">Toys</button>
-            <button onclick="filterCategory('tech')" class="hover:text-black dark:hover:text-white transition-colors">Tech</button>
-        </div>
-        <div class="w-32 flex justify-end">
-            <button id="theme-toggle" class="p-2 rounded-full text-sm font-medium transition-all duration-300" aria-label="Toggle dark mode">
+    <nav class="sticky top-0 z-50 nav-glass w-full transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="font-extrabold tracking-tight text-lg uppercase bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 bg-clip-text text-transparent">Shop Our Finds</div>
+            
+            <button id="theme-toggle" class="p-2 px-4 rounded-full text-sm font-medium transition-all duration-300 shadow-sm" aria-label="Toggle dark mode">
                 🌙 Dark
             </button>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         
-        <!-- Profile Section -->
         <div class="text-center max-w-xl mx-auto mb-12">
-            <div class="md:hidden font-extrabold tracking-tight text-xl uppercase mb-8 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400 bg-clip-text text-transparent">Shop My Finds</div>
-            
             <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full bg-white overflow-hidden mb-5 shadow-lg border-4 border-white dark:border-gray-700 relative group">
                 <img 
                 src="images/KikiDhiv.PNG" 
@@ -322,7 +61,6 @@
             </a>
         </div>
 
-        <!-- Modern Pill Filters -->
         <div class="flex flex-wrap justify-center gap-3 mb-12">
             <button onclick="filterCategory('all')" id="btn-all" class="category-btn category-btn-active">All</button>
             <button onclick="filterCategory('fashion')" id="btn-fashion" class="category-btn">Fashion</button>
@@ -332,13 +70,8 @@
             <button onclick="filterCategory('tech')" id="btn-tech" class="category-btn">Tech</button>
         </div>
 
-        <!-- Products Grid -->
         <div id="products" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 sm:gap-8">
 
-            <!-- PRODUCTS INJECTED VIA JS FOR CLEANLINESS, BUT KEPT INLINE FOR COMPATIBILITY -->
-            <!-- The HTML structure is identical to original but uses CSS variables for theming -->
-            
-            <!-- Beauty: AHA BHA Roll-On -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -356,8 +89,65 @@
                     <a href="https://www.amazon.in/dp/B0DVSNG7NC?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=549b0bccb31779ce8d405b3b0ffa4f5b&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
+            <!-- Beauty: Nivea Women Roll-On -->
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-highlight uppercase tracking-wide">Highly Recommend</span>
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-daily uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md tag-store uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <!-- Make sure to name your image exactly like this in the images folder -->
+                    <img src="images/Nivea Women Pearl & Beauty Roll-On.jpg" alt="Nivea Women Roll-On" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d?text=Beauty'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title font-bold text-sm">Nivea Women Pearl & Beauty Roll-On</h2>
+                    <p class="product-desc text-xs mt-1.5 line-clamp-2">Even-toned, smooth & beautiful underarms. 50ml radiance formula.</p>
+                    <a href="https://www.amazon.in/dp/B09Y58XSZQ?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=a67afad7bd1ecb0e2506374d7b8af5bf&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
 
-            <!-- Kids: Oliveware Lunch Box -->
+            <!-- Beauty: Nivea Men Roll-On -->
+            <div class="product-card" data-category="beauty">
+                <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-highlight uppercase tracking-wide">Highly Recommend</span>
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-daily uppercase tracking-wide">Daily Use</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md tag-store uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <!-- Make sure to name your image exactly like this in the images folder -->
+                    <img src="images/NIVEA MEN Deep Impact Roll-On.jpg" alt="Nivea Men Roll-On" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/e0e7ff/3730a3?text=Beauty'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title font-bold text-sm">NIVEA MEN Deep Impact Roll-On</h2>
+                    <p class="product-desc text-xs mt-1.5 line-clamp-2">Long-lasting freshness with black carbon for effective body odour control.</p>
+                    <a href="https://www.amazon.in/dp/B07D9GF1NW?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d602da392d70c816108d8e6bc8bffacf&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- Kids: Amazara Corner Guards -->
+            <div class="product-card" data-category="kids">
+                <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-highlight uppercase tracking-wide">Highly Recommend</span>
+                    </div>
+                    <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-md tag-store uppercase tracking-wide">Amazon</span>
+                    </div>
+                    <!-- Ensure the image file exists in your images folder -->
+                    <img src="images/Amazara Baby Corner Guards.jpg" alt="Amazara Corner Guards" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fef3c7/92400e?text=Kids'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title font-bold text-sm">AMAZARA Baby Corner Guards</h2>
+                    <p class="product-desc text-xs mt-1.5 line-clamp-2">Pre-taped safety edge protectors with strong 3M adhesive for effective childproofing.</p>
+                    <a href="https://www.amazon.in/dp/B07NSQFTLH?&linkCode=ll2&tag=kikidhiv-21&linkId=14c89bd1243eb02a686de4cdec6360a3&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
+                </div>
+            </div>
+
             <div class="product-card" data-category="kids">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -375,7 +165,6 @@
                 </div>
             </div>
 
-            <!-- Kids: STRONG LIFE Tiffin Bag -->
             <div class="product-card" data-category="kids">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -393,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- Kids: ALVERO Bottle -->
             <div class="product-card" data-category="kids">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -411,7 +199,6 @@
                 </div>
             </div>
 
-            <!-- Kids: Spiderman Pencil Box -->
             <div class="product-card" data-category="kids">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -429,7 +216,6 @@
                 </div>
             </div>
 
-            <!-- Tech: Cleaning Kit -->
             <div class="product-card" data-category="tech">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -447,7 +233,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Scalp Massager -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -465,7 +250,6 @@
                 </div>
             </div>
 
-            <!-- Toys: Unicorn Slide -->
             <div class="product-card" data-category="toys">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
@@ -483,7 +267,6 @@
                 </div>
             </div>
 
-            <!-- Fashion: Rayon Green Dress -->
             <div class="product-card" data-category="fashion">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -498,7 +281,6 @@
                 </div>
             </div>
 
-            <!-- Fashion: Floral Kurti Set -->
             <div class="product-card" data-category="fashion">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -513,7 +295,6 @@
                 </div>
             </div>
 
-            <!-- Fashion: Floral Calf-Length Dress -->
             <div class="product-card" data-category="fashion">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -528,7 +309,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Lip Gloss -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -543,7 +323,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Makeup Wipes -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -558,7 +337,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Sponge & Puff Kit -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -573,7 +351,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Face Primer -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -588,7 +365,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Mascara -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -603,7 +379,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Compact Powder -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -618,7 +393,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Lip Balm -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -633,7 +407,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Liquid Foundation -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -648,7 +421,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Matte Concealer -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -663,7 +435,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Face & Eye Palette -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -678,7 +449,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Bold Liner -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -693,7 +463,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Setting Spray -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -708,7 +477,6 @@
                 </div>
             </div>
 
-            <!-- Beauty: Hair Serum -->
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -723,7 +491,6 @@
                 </div>
             </div>
 
-            <!-- Kids: Spiderman Pencils -->
             <div class="product-card" data-category="kids">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -738,7 +505,6 @@
                 </div>
             </div>
 
-            <!-- Toys: Dancing Cactus -->
             <div class="product-card" data-category="toys">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -753,7 +519,6 @@
                 </div>
             </div>
 
-            <!-- Toys: Stunt Car -->
             <div class="product-card" data-category="toys">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -768,7 +533,6 @@
                 </div>
             </div>
 
-            <!-- Toys: Pop It Fidget -->
             <div class="product-card" data-category="toys">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute bottom-2.5 left-2.5 flex items-start z-10">
@@ -782,152 +546,21 @@
                     <a href="https://www.amazon.in/dp/B0DTV7QTFB?&linkCode=ll2&tag=kikidhiv-21&linkId=cf167a731b9675ea6ff9f0fbb3a8bd7f&ref_=as_li_ss_tl" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">Shop Now</a>
                 </div>
             </div>
+            
 
         </div>
 
-        <!-- No Results Found -->
         <div id="no-results" class="hidden text-center py-20">
             <h3 class="text-xl font-bold mb-2">No products found</h3>
-            <p class="text-sm opacity-70">Try adjusting your category selection views above.</p>
+            <p class="text-sm opacity-70">Try adjusting your category selection above.</p>
             <button onclick="resetFilters()" class="mt-6 px-8 py-2.5 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-full text-sm hover:opacity-90 transition-colors">Clear Selection</button>
         </div>
     </main>
 
-    <footer class="mt-20 py-10 text-center text-xs border-t bg-white dark:bg-gray-900">
+    <footer class="mt-12 py-8 text-center text-xs border-t bg-[var(--bg-secondary)] text-[var(--footer-text)] transition-colors duration-300">
         <p>As an Amazon Associate and affiliate partner, I earn from qualifying store checkouts.</p>
         <p class="mt-2">&copy; 2026 KikiDhiv's Finds. All rights reserved.</p>
     </footer>
 
-    <script>
-        (function () {
-            'use strict';
-
-            // State Management
-            const state = {
-                currentCategory: 'all',
-                darkMode: true // default dark mode
-            };
-
-            // DOM Elements
-            const DOM = {
-                productCards: document.querySelectorAll('.product-card'),
-                noResults: document.getElementById('no-results'),
-                productGrid: document.getElementById('products'),
-                categoryButtons: document.querySelectorAll('.category-btn'),
-                themeToggle: document.getElementById('theme-toggle'),
-                htmlElement: document.documentElement
-            };
-
-            // ============================================
-            // Theme Toggle Logic
-            // ============================================
-            function setTheme(isDark) {
-                if (isDark) {
-                    DOM.htmlElement.classList.add('dark');
-                    if (DOM.themeToggle) {
-                        DOM.themeToggle.innerHTML = '☀️ Light';
-                        DOM.themeToggle.setAttribute('aria-label', 'Switch to light mode');
-                    }
-                } else {
-                    DOM.htmlElement.classList.remove('dark');
-                    if (DOM.themeToggle) {
-                        DOM.themeToggle.innerHTML = '🌙 Dark';
-                        DOM.themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-                    }
-                }
-                state.darkMode = isDark;
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            }
-
-            function toggleTheme() {
-                setTheme(!state.darkMode);
-            }
-
-            // Initialize theme based on localStorage or default dark
-            function initTheme() {
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') {
-                    setTheme(false);
-                } else {
-                    setTheme(true); // default dark
-                }
-            }
-
-            // ============================================
-            // UI Updates (Filters)
-            // ============================================
-            function updateCategoryButtons(category) {
-                DOM.categoryButtons.forEach(btn => {
-                    const btnCategory = btn.id ? btn.id.replace('btn-', '') : btn.textContent.trim().toLowerCase();
-                    if (btnCategory === category) {
-                        btn.classList.add('category-btn-active');
-                    } else {
-                        btn.classList.remove('category-btn-active');
-                    }
-                });
-            }
-
-            function applyFilters() {
-                let visibleCount = 0;
-                DOM.productCards.forEach(card => {
-                    const cardCategory = card.dataset.category;
-                    const categoryMatch = state.currentCategory === 'all' || cardCategory === state.currentCategory;
-
-                    if (categoryMatch) {
-                        card.style.display = 'flex';
-                        card.style.animation = 'none';
-                        card.offsetHeight;
-                        card.style.animation = 'fadeIn 0.4s ease-out';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                if (visibleCount === 0) {
-                    DOM.noResults?.classList.remove('hidden');
-                    DOM.productGrid.style.display = 'none';
-                } else {
-                    DOM.noResults?.classList.add('hidden');
-                    DOM.productGrid.style.display = 'grid';
-                }
-            }
-
-            // Expose globally for inline handlers
-            window.filterCategory = function (category) {
-                state.currentCategory = category;
-                updateCategoryButtons(category);
-                applyFilters();
-            };
-
-            window.resetFilters = function () {
-                state.currentCategory = 'all';
-                updateCategoryButtons('all');
-                applyFilters();
-            };
-
-            // ============================================
-            // Initialize Everything
-            // ============================================
-            function init() {
-                initTheme();
-                updateCategoryButtons('all');
-                applyFilters();
-
-                // Attach theme toggle event
-                if (DOM.themeToggle) {
-                    DOM.themeToggle.addEventListener('click', toggleTheme);
-                }
-
-                console.log('KikiDhiv Finds - Dark mode ready ✨');
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', init);
-            } else {
-                init();
-            }
-        })();
-    </script>
 </body>
 </html>
