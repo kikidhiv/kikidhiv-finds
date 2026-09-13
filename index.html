@@ -75,6 +75,7 @@
             <button onclick="filterCategory('kids')" id="btn-kids" class="category-btn">Kids & Stationery</button>
             <button onclick="filterCategory('toys')" id="btn-toys" class="category-btn">Toys</button>
             <button onclick="filterCategory('tech')" id="btn-tech" class="category-btn">Tech</button>
+            <button onclick="filterCategory('prompts')" id="btn-prompts" class="category-btn">Prompts</button>
         </div>
 
         <!-- Products Grid -->
@@ -395,7 +396,21 @@
 
 
             <!-- ================= ORIGINAL PRODUCTS ================= -->
-            
+<!-- Prompt: Neon Portrait -->
+            <div class="product-card" data-category="prompts">
+                <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
+                    <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-highlight uppercase tracking-wide">Prompt</span>
+                        <span class="text-[9px] font-bold px-2.5 py-1 rounded-full shadow-sm tag-daily uppercase tracking-wide">AI Art</span>
+                    </div>
+                    <img src="images/placeholder.jpg" alt="Neon Portrait Prompt" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://placehold.co/400x500/fce7f3/be185d?text=Prompt'">
+                </div>
+                <div class="product-info mt-4 px-1 text-center">
+                    <h2 class="product-title font-bold text-sm">Neon Portrait Prompt</h2>
+                    <p class="product-desc text-xs mt-1.5 line-clamp-2">Ultra-realistic cinematic neon silhouette portrait prompt for a young romantic couple against a black background with electric-blue rim light.</p>
+                    <a href="neon_portrait_prompt.txt" target="_blank" rel="noopener noreferrer nofollow" class="product-btn mt-4">View Full Prompt</a>
+                </div>
+            </div>            
             <div class="product-card" data-category="beauty">
                 <div class="product-image relative group overflow-hidden bg-gray-100 dark:bg-gray-700 rounded-2xl">
                     <div class="absolute top-2.5 left-2.5 flex flex-col items-start gap-1.5 z-10">
