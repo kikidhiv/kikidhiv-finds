@@ -7,14 +7,16 @@ A modern, responsive affiliate shopping page showcasing handpicked products from
 
 ## 🚀 Features
 
-- **🌓 Dark/Light Mode** - Toggle between themes with persistent localStorage preference (defaults to dark mode)
-- **🏷️ Category Filtering** - Browse products by Fashion, Beauty, Kids & Stationery, Toys, and Tech
+- **🌓 Dark/Light Mode** - Toggle between themes with persistent localStorage preference (defaults to IST time-aware dark mode between 6PM-6AM)
+- **🏷️ Category Filtering** - Browse products by Fashion, Beauty, Kids & Stationery, Toys, Tech, and Prompts
+- **🔍 Real-Time Search** - Debounced 180ms search filtering across titles, descriptions, categories, tags, and sources
 - **🏪 Platform Tags** - Visual indicators for Amazon and Meesho products
 - **⭐ Priority Labels** - "Highly Recommend", "Daily Use", and "Worth It" badges on top picks
-- **📱 Fully Responsive** - Optimized for mobile, tablet, and desktop viewing
-- **✨ Smooth Animations** - Fade-in card animations and hover effects
-- **🎨 Modern UI** - Glassmorphism navigation, pill-shaped filters, and rounded card design
-- **🔗 Affiliate Ready** - All product links include affiliate tags for Amazon and Meesho
+- **📱 Fully Responsive** - Premium Pinterest-inspired design optimized for mobile, tablet, and desktop (2 → 3 → 4 column grid)
+- **✨ Smooth Animations** - Card fade-in animations and hover effects with GPU-accelerated transitions
+- **🎨 Modern UI** - Glassmorphism sticky header, pill-shaped scroll-snap filters, rounded editorial cards with 4:5 image ratio
+- **🔗 Affiliate Ready** - All product links include affiliate tags for Amazon (`kikidhiv-21`) and Meesho
+- **⚡ Module-Based** - ES modules for clean separation of data and application logic
 
 ## 🛠️ Tech Stack
 
@@ -28,18 +30,24 @@ A modern, responsive affiliate shopping page showcasing handpicked products from
 
 ```
 kikidhivs-finds/
-├── index.html          # Main HTML file with all product cards
-├── style.css           # (Embedded in <style> tag within index.html)
-├── script.js           # (Embedded in <script> tag within index.html)
+├── index.html          # Main HTML file
+├── styles.css          # Stylesheet
+├── app.js              # Application logic
+├── data/
+│   └── products.js     # Normalized product dataset
 ├── images/             # Product images directory
 │   ├── KikiDhiv.PNG
 │   ├── AHA BHA Underarm Roll-On.jpg
 │   ├── Oliveware Leak-Proof Lunch Box.jpg
 │   └── ... (30+ product images)
+├── prompt_images/      # Prompt images
+│   └── neon_portrait_prompt.PNG
+├── prompt_txt_files/   # Prompt text files
+│   └── neon_portrait_prompt.txt
 └── README.md           # Project documentation
 ```
 
-> **Note:** The CSS and JavaScript are currently embedded directly in `index.html` for simplicity. You can extract them into separate `style.css` and `script.js` files if preferred.
+> **Note:** The CSS and JavaScript are now separate files (`styles.css` and `app.js`) for better maintainability. The site uses ES modules to import product data from `data/products.js`.
 
 ## 🎯 Product Categories
 
