@@ -4,6 +4,17 @@
  * Schema: { id, title, description, category, image, link, source, tags[] }
  */
 const products = [
+    {
+        id: 'prompt-red-saree',
+        title: 'Red Saree Portrait Prompt',
+        description: 'Hyper-realistic 3-panel cinematic portrait, 8K, vertical 9:16. Preserve exact face and body features.',
+        category: 'prompts',
+        image: 'prompt_images/Red_saree_prompt.PNG',
+        link: 'prompt_txt_files/Red_saree_prompt.txt',
+        source: 'prompt',
+        tags: ["Prompt"]
+    },
+
     // ======================== FEATURED / NEW ARRIVALS ========================
     {
         id: 'tech-02',

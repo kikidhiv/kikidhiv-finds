@@ -156,6 +156,7 @@ function applyFilters() {
         return matchesCategory && (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch);
     });
 
+    state.filteredProducts.sort((a,b) => (a.category==="prompts"?-1:b.category==="prompts"?1:0));
     renderProducts();
     updateResultsMeta();
 }
