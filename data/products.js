@@ -4,6 +4,18 @@
  * Schema: { id, title, description, category, image, link, source, tags[] }
  */
 const products = [
+    // ======================== FEATURED / NEW ARRIVALS ========================
+    {
+        id: 'tech-02',
+        title: 'Portronics Oria Magnetic Clip-On Selfie Light',
+        description: 'Type-C rechargeable magnetic clip-on selfie light with mirror & stand. Adjustable brightness & color temperature, multi-angle positioning. Includes metal ring for selfies, video calls & reels.',
+        category: 'tech',
+        image: 'images/Trending influencer ligh.jpg',
+        link: 'https://www.amazon.in/dp/B0GLH9GBZC?&linkCode=ll2&tag=kikidhiv-21&linkId=7dcf393fbce4db59fe03a63f69b76536&ref_=as_li_ss_tl',
+        source: 'amazon',
+        tags: ['Worth It', 'Content Creator']
+    },
+
     // ======================== BEAUTY ========================
     {
         id: 'beauty-01',
