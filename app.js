@@ -32,7 +32,10 @@ function cacheDOM() {
         productsGrid: document.getElementById('products-grid'),
         resultsCount: document.getElementById('results-count'),
         emptyState: document.getElementById('empty-state'),
-        resetBtn: document.getElementById('reset-filters-btn')
+        resetBtn: document.getElementById('reset-filters-btn'),
+        promptModal: document.getElementById('prompt-modal'),
+        promptModalContent: document.getElementById('prompt-modal-content'),
+        promptModalClose: document.getElementById('prompt-modal-close')
     };
 }
 
@@ -45,10 +48,8 @@ function getThemeByIST() {
         const istString = now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
         const istTime = new Date(istString);
         const hour = istTime.getHours();
-        // True if time is between 18:00 (6 PM) and 05:59 (6 AM)
         return (hour >= 18 || hour < 6);
     } catch (e) {
-        // Fallback to local hour if timezone fails
         const hour = new Date().getHours();
         return (hour >= 18 || hour < 6);
     }
@@ -93,8 +94,9 @@ function renderCategoryPills() {
 
     DOM.categoryContainer.innerHTML = categories.map(cat => {
         const isActive = cat.id === state.activeCategory;
+        // Exclude prompts from the "All" count — they live in their own tab
         const count = cat.id === 'all'
-            ? products.length
+            ? products.filter(p => p.category !== 'prompts').length
             : products.filter(p => p.category === cat.id).length;
 
         return `
@@ -113,13 +115,10 @@ function renderCategoryPills() {
         `;
     }).join('');
 
-    // Attach listeners
     DOM.categoryContainer.querySelectorAll('.category-pill').forEach(btn => {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             setCategory(category);
-
-            // Smooth scroll active button into view on mobile
             btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         });
     });
@@ -135,28 +134,28 @@ function updateActivePill() {
 }
 
 // ==========================================================================
-// Filtering Engine (Dual Filter: Category + Real-Time Search)
+// Filtering Engine — prompts excluded from "All" tab
 // ==========================================================================
 function applyFilters() {
     const query = state.searchQuery.trim().toLowerCase();
 
     state.filteredProducts = products.filter(product => {
-        // Category match
-        const matchesCategory = state.activeCategory === 'all' || product.category === state.activeCategory;
+        // "All" tab = lifestyle finds only (no prompts)
+        const matchesCategory = state.activeCategory === 'all'
+            ? product.category !== 'prompts'
+            : product.category === state.activeCategory;
 
-        // Search query match (title, description, category, tags, source)
         if (!query) return matchesCategory;
 
-        const titleMatch = product.title.toLowerCase().includes(query);
-        const descMatch = product.description.toLowerCase().includes(query);
+        const titleMatch    = product.title.toLowerCase().includes(query);
+        const descMatch     = product.description.toLowerCase().includes(query);
         const categoryMatch = product.category.toLowerCase().includes(query);
-        const tagsMatch = product.tags.some(t => t.toLowerCase().includes(query));
-        const sourceMatch = product.source.toLowerCase().includes(query);
+        const tagsMatch     = product.tags.some(t => t.toLowerCase().includes(query));
+        const sourceMatch   = product.source.toLowerCase().includes(query);
 
         return matchesCategory && (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch);
     });
 
-    state.filteredProducts.sort((a,b) => (a.category==="prompts"?-1:b.category==="prompts"?1:0));
     renderProducts();
     updateResultsMeta();
 }
@@ -178,7 +177,7 @@ function resetAllFilters() {
 }
 
 // ==========================================================================
-// Product Card Rendering (Performance Optimized & Semantic)
+// Product Card Rendering
 // ==========================================================================
 function createProductCardHTML(product, index) {
     // Source badge
@@ -191,24 +190,58 @@ function createProductCardHTML(product, index) {
         sourceBadgeHTML = '<span class="badge badge-source-prompt">AI Prompt</span>';
     }
 
-    // Tag badges
+    // Tag badges (only decorative tags like "Party Wear")
     const tagsHTML = product.tags.map(tag => {
-        let tagClass = 'badge-highlight';
-        if (tag === 'Daily Use') tagClass = 'badge-daily';
-        if (tag === 'Worth It') tagClass = 'badge-worth';
-        return `<span class="badge ${tagClass}">${tag}</span>`;
+        return `<span class="badge badge-highlight">${tag}</span>`;
     }).join('');
 
-    // CTA Label & Icon
     const isPrompt = product.category === 'prompts';
-    const ctaText = isPrompt ? 'View Full Prompt' : 'Shop Now';
-    const ctaIcon = isPrompt
-        ? `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>`
-        : `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>`;
+    const placeholderURL = `https://placehold.co/400x500/1e293b/f8fafc?text=${encodeURIComponent(product.category || 'Product')}`;
 
-    const placeholderCategory = product.category || 'Product';
-    const placeholderURL = `https://placehold.co/400x500/1e293b/f8fafc?text=${encodeURIComponent(placeholderCategory)}`;
+    if (isPrompt) {
+        // Prompt card — opens modal instead of linking out
+        return `
+            <article class="product-card prompt-card" data-category="${product.category}" data-id="${product.id}" style="animation-delay: ${Math.min(index * 0.03, 0.3)}s">
+                <div class="product-image-container">
+                    <div class="badge-container-bottom">${sourceBadgeHTML}</div>
+                    <div class="prompt-overlay">
+                        <span class="prompt-overlay-icon">✨</span>
+                        <span class="prompt-overlay-text">Tap to copy prompt</span>
+                    </div>
+                    <img
+                        src="${product.image}"
+                        alt="${product.title.replace(/"/g, '&quot;')}"
+                        loading="lazy"
+                        class="product-image"
+                        onerror="this.onerror=null; this.src='${placeholderURL}';"
+                    />
+                </div>
+                <div class="product-content">
+                    <span class="product-category-label">AI Prompt</span>
+                    <h3 class="product-title" title="${product.title.replace(/"/g, '&quot;')}">${product.title}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <button
+                        class="product-cta prompt-cta-btn"
+                        data-prompt-id="${product.id}"
+                        aria-label="View and copy prompt — ${product.title.replace(/"/g, '&quot;')}"
+                    >
+                        <span>✨ Copy Prompt</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+            </article>
+        `;
+    }
 
+    // Price display — shown if set, hidden if null
+    const priceHTML = product.price
+        ? `<div class="product-price">
+               <span class="price-value">₹${product.price.toLocaleString('en-IN')}</span>
+               <span class="price-note" title="Price set by ${product.source === 'amazon' ? 'Amazon' : 'Meesho'} and may vary">approx.</span>
+           </div>`
+        : '';
+
+    // Regular product card
     return `
         <article class="product-card" data-category="${product.category}" data-id="${product.id}" style="animation-delay: ${Math.min(index * 0.03, 0.3)}s">
             <div class="product-image-container">
@@ -226,15 +259,16 @@ function createProductCardHTML(product, index) {
                 <span class="product-category-label">${product.category}</span>
                 <h3 class="product-title" title="${product.title.replace(/"/g, '&quot;')}">${product.title}</h3>
                 <p class="product-description">${product.description}</p>
+                ${priceHTML}
                 <a
                     href="${product.link}"
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     class="product-cta"
-                    aria-label="${ctaText} - ${product.title.replace(/"/g, '&quot;')}"
+                    aria-label="Shop Now — ${product.title.replace(/"/g, '&quot;')}"
                 >
-                    <span>${ctaText}</span>
-                    ${ctaIcon}
+                    <span>Shop Now</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </a>
             </div>
         </article>
@@ -251,18 +285,28 @@ function renderProducts() {
         DOM.productsGrid.style.display = 'grid';
         if (DOM.emptyState) DOM.emptyState.style.display = 'none';
         DOM.productsGrid.innerHTML = state.filteredProducts.map((p, i) => createProductCardHTML(p, i)).join('');
+
+        // Attach prompt card button listeners after render
+        DOM.productsGrid.querySelectorAll('.prompt-cta-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.dataset.promptId;
+                const product = products.find(p => p.id === id);
+                if (product) openPromptModal(product);
+            });
+        });
     }
 }
 
 function updateResultsMeta() {
     if (!DOM.resultsCount) return;
-
     const count = state.filteredProducts.length;
     const catObj = categories.find(c => c.id === state.activeCategory);
     const catName = catObj ? catObj.label : 'All';
 
     if (state.searchQuery) {
         DOM.resultsCount.textContent = `Found ${count} ${count === 1 ? 'item' : 'items'} matching "${state.searchQuery}"`;
+    } else if (state.activeCategory === 'prompts') {
+        DOM.resultsCount.textContent = `${count} AI ${count === 1 ? 'prompt' : 'prompts'} — tap any card to copy`;
     } else if (state.activeCategory !== 'all') {
         DOM.resultsCount.textContent = `Showing ${count} ${count === 1 ? 'find' : 'finds'} in ${catName}`;
     } else {
@@ -271,15 +315,117 @@ function updateResultsMeta() {
 }
 
 // ==========================================================================
+// Prompt Quick-Copy Modal
+// ==========================================================================
+function openPromptModal(product) {
+    if (!DOM.promptModal || !DOM.promptModalContent) return;
+
+    const promptText = product.promptText || '';
+
+    DOM.promptModalContent.innerHTML = `
+        <div class="pm-header">
+            <div class="pm-header-text">
+                <p class="pm-label">AI Prompt</p>
+                <h2 class="pm-title">${product.title}</h2>
+            </div>
+            <button class="pm-close" id="prompt-modal-close" aria-label="Close prompt">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="pm-body">
+            <img
+                src="${product.image}"
+                alt="${product.title}"
+                class="pm-image"
+                onerror="this.style.display='none'"
+            />
+            <p class="pm-description">${product.description}</p>
+
+            <div class="pm-prompt-box">
+                <div class="pm-prompt-label-row">
+                    <span class="pm-prompt-label">Prompt Text</span>
+                </div>
+                <pre class="pm-prompt-text" id="prompt-text-content">${escapeHTML(promptText)}</pre>
+            </div>
+
+            <button class="pm-copy-btn" id="pm-copy-btn" aria-label="Copy prompt to clipboard">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span>Copy Prompt</span>
+            </button>
+        </div>
+    `;
+
+    // Wire up close
+    DOM.promptModal.querySelector('#prompt-modal-close')?.addEventListener('click', closePromptModal);
+
+    // Wire up copy
+    DOM.promptModal.querySelector('#pm-copy-btn')?.addEventListener('click', function () {
+        const textEl = document.getElementById('prompt-text-content');
+        const text = textEl ? textEl.innerText : promptText;
+        const btn = this;
+
+        navigator.clipboard.writeText(text).then(() => {
+            showCopied(btn);
+        }).catch(() => {
+            // Fallback selection method
+            try {
+                const range = document.createRange();
+                range.selectNodeContents(textEl);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                document.execCommand('copy');
+                sel.removeAllRanges();
+                showCopied(btn);
+            } catch (err) {
+                btn.querySelector('span').textContent = 'Select & copy manually';
+            }
+        });
+    });
+
+    DOM.promptModal.hidden = false;
+    DOM.promptModal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+}
+
+function showCopied(btn) {
+    const span = btn.querySelector('span');
+    const originalText = span.textContent;
+    btn.classList.add('is-copied');
+    span.textContent = 'Copied!';
+    setTimeout(() => {
+        btn.classList.remove('is-copied');
+        span.textContent = originalText;
+    }, 2200);
+}
+
+function closePromptModal() {
+    if (!DOM.promptModal) return;
+    DOM.promptModal.hidden = true;
+    DOM.promptModal.classList.remove('is-open');
+    document.body.style.overflow = '';
+}
+
+function escapeHTML(str) {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+// ==========================================================================
 // Debounce Utility
 // ==========================================================================
 function debounce(func, wait = 200) {
     let timeout;
     return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
+        const later = () => { clearTimeout(timeout); func(...args); };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
@@ -289,10 +435,8 @@ function debounce(func, wait = 200) {
 // Event Listeners Setup
 // ==========================================================================
 function initEvents() {
-    // Theme toggle
     DOM.themeToggle?.addEventListener('click', toggleTheme);
 
-    // Search input with debouncing
     const handleSearch = debounce((e) => {
         state.searchQuery = e.target.value;
         if (DOM.searchClear) {
@@ -303,7 +447,6 @@ function initEvents() {
 
     DOM.searchInput?.addEventListener('input', handleSearch);
 
-    // Clear search button
     DOM.searchClear?.addEventListener('click', () => {
         if (DOM.searchInput) {
             DOM.searchInput.value = '';
@@ -314,17 +457,24 @@ function initEvents() {
         applyFilters();
     });
 
-    // Keyboard shortcut: Escape clears search
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && state.searchQuery) {
-            if (DOM.searchInput) DOM.searchInput.value = '';
-            state.searchQuery = '';
-            if (DOM.searchClear) DOM.searchClear.style.display = 'none';
-            applyFilters();
+        if (e.key === 'Escape') {
+            if (DOM.promptModal && !DOM.promptModal.hidden) {
+                closePromptModal();
+            } else if (state.searchQuery) {
+                if (DOM.searchInput) DOM.searchInput.value = '';
+                state.searchQuery = '';
+                if (DOM.searchClear) DOM.searchClear.style.display = 'none';
+                applyFilters();
+            }
         }
     });
 
-    // Reset filters button
+    // Close modal on backdrop click
+    DOM.promptModal?.addEventListener('click', (e) => {
+        if (e.target === DOM.promptModal) closePromptModal();
+    });
+
     DOM.resetBtn?.addEventListener('click', resetAllFilters);
 }
 
@@ -333,23 +483,17 @@ function initEvents() {
 // ==========================================================================
 function init() {
     try {
-        console.log('[KikiDhivsFinds] init');
         cacheDOM();
-        console.log('[KikiDhivsFinds] DOM cached', !!DOM.themeToggle);
         initTheme();
         renderCategoryPills();
         applyFilters();
         initEvents();
     } catch (e) {
         console.error('[KikiDhivsFinds] init error:', e);
-        // Show error in UI maybe
-        if (DOM.resultsCount) {
-            DOM.resultsCount.textContent = 'Error loading finds';
-        }
+        if (DOM.resultsCount) DOM.resultsCount.textContent = 'Error loading finds';
     }
 }
 
-// Execute when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {

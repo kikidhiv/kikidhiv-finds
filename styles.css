@@ -559,6 +559,37 @@ body {
     font-size: 0.8125rem;
 }
 
+/* --- Product Price Display --- */
+.product-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    margin: 0.75rem 0 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.price-value {
+    color: var(--accent-primary);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.price-note {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+.price-note:hover {
+    cursor: help;
+    opacity: 0.9;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
 /* --- Keyframe Animations --- */
 @keyframes cardFadeIn {
     from {
@@ -568,5 +599,294 @@ body {
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+    }
+}
+
+/* --- Prompt Modal --- */
+.prompt-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.prompt-modal.is-open {
+    display: flex;
+    opacity: 1;
+}
+
+.prompt-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.prompt-modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.prompt-modal.is-open .prompt-modal-container {
+    transform: scale(1);
+}
+
+.prompt-modal-content {
+    background: var(--bg-surface);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px -12px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-medium);
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Prompt Modal Header */
+.pm-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0;
+    gap: 1rem;
+}
+
+.pm-header-text {
+    flex: 1;
+}
+
+.pm-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-primary);
+    margin-bottom: 0.25rem;
+}
+
+.pm-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+    margin: 0;
+}
+
+.pm-close {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.pm-close:hover {
+    background: var(--border-medium);
+    color: var(--text-primary);
+}
+
+/* Prompt Modal Body */
+.pm-body {
+    padding: 1.5rem;
+}
+
+.pm-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pm-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.pm-prompt-box {
+    background: var(--bg-subtle);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-subtle);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.pm-prompt-label-row {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+}
+
+.pm-prompt-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pm-prompt-text {
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    padding: 1rem;
+    margin: 0;
+    background: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.pm-copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    background: var(--accent-primary);
+    color: var(--accent-primary-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(224, 122, 95, 0.25);
+}
+
+.pm-copy-btn:hover {
+    background: var(--accent-primary-hover);
+    box-shadow: 0 4px 14px rgba(224, 122, 95, 0.4);
+    transform: translateY(-1px);
+}
+
+.pm-copy-btn.is-copied {
+    background: #10B981;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+}
+
+/* Prompt Card Styling */
+.prompt-card {
+    cursor: pointer;
+}
+
+.prompt-overlay {
+    position: absolute;
+    bottom: 0.625rem;
+    right: 0.625rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 9999px;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.prompt-card:hover .prompt-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.prompt-overlay-icon {
+    font-size: 0.875rem;
+}
+
+.prompt-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    width: 100%;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    background: var(--tag-prompt-bg);
+    color: var(--tag-prompt-text);
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+    margin-top: auto;
+}
+
+.prompt-cta-btn:hover {
+    background: #2563EB;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+}
+
+.prompt-cta-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.prompt-cta-btn:hover svg {
+    transform: translateX(3px);
+}
+
+/* Mobile Responsive for Modal */
+@media (max-width: 640px) {
+    .prompt-modal {
+        padding: 0.5rem;
+    }
+
+    .prompt-modal-container {
+        max-width: none;
+        width: 100%;
+    }
+
+    .pm-header {
+        padding: 1rem 1rem 0;
+    }
+
+    .pm-body {
+        padding: 1rem;
+    }
+
+    .pm-title {
+        font-size: 1rem;
+    }
+
+    .pm-prompt-text {
+        font-size: 0.75rem;
+        padding: 0.75rem;
     }
 }
