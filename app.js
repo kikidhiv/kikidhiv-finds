@@ -94,10 +94,29 @@ function renderCategoryPills() {
 
     DOM.categoryContainer.innerHTML = categories.map(cat => {
         const isActive = cat.id === state.activeCategory;
-        // Exclude prompts from the "All" count — they live in their own tab
-        const count = cat.id === 'all'
-            ? products.filter(p => p.category !== 'prompts').length
-            : products.filter(p => p.category === cat.id).length;
+
+        // Calculate counts for different categories:
+        // - 'all': all products excluding prompts
+        // - 'women'/'men': women/men products
+        // - other categories: their original category products
+        let count = 0;
+        if (cat.id === 'all') {
+            count = products.filter(p => p.category !== 'prompts').length;
+        } else if (cat.id === 'women') {
+            // Count only fashion + beauty products for women (matches filtering logic)
+            count = products.filter(p =>
+                ['fashion', 'beauty'].includes(p.category) &&
+                ['women', 'unisex'].includes(p.gender)
+            ).length;
+        } else if (cat.id === 'men') {
+            // Count only fashion + beauty products for men (matches filtering logic)
+            count = products.filter(p =>
+                ['fashion', 'beauty'].includes(p.category) &&
+                ['men', 'unisex'].includes(p.gender)
+            ).length;
+        } else {
+            count = products.filter(p => p.category === cat.id).length;
+        }
 
         return `
             <button
@@ -134,26 +153,54 @@ function updateActivePill() {
 }
 
 // ==========================================================================
-// Filtering Engine — prompts excluded from "All" tab
+// Filtering Engine — gender-based filtering, prompts excluded from "All" tab
 // ==========================================================================
 function applyFilters() {
     const query = state.searchQuery.trim().toLowerCase();
 
     state.filteredProducts = products.filter(product => {
-        // "All" tab = lifestyle finds only (no prompts)
-        const matchesCategory = state.activeCategory === 'all'
-            ? product.category !== 'prompts'
-            : product.category === state.activeCategory;
+        // Handle "All" tab — includes all products except prompts
+        if (state.activeCategory === 'all') {
+            // For "All", include all products except prompts
+            if (product.category === 'prompts') return false;
 
-        if (!query) return matchesCategory;
+            // For the query matching, we need to search across all relevant fields including gender-based search
+            if (!query) return true; // Already filtered by category above
+
+            const titleMatch    = product.title.toLowerCase().includes(query);
+            const descMatch     = product.description.toLowerCase().includes(query);
+            const categoryMatch = product.category.toLowerCase().includes(query);
+            const tagsMatch     = product.tags.some(t => t.toLowerCase().includes(query));
+            const sourceMatch   = product.source.toLowerCase().includes(query);
+            const genderMatch   = product.gender?.toLowerCase().includes(query);
+
+            return (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch || genderMatch);
+        }
+
+        // Handle gender-specific tabs — ONLY fashion and beauty are split by gender
+        if (state.activeCategory === 'women') {
+            // Women tab: only fashion + beauty products for women
+            if (!['fashion', 'beauty'].includes(product.category)) return false;
+            if (!['women', 'unisex'].includes(product.gender)) return false;
+        } else if (state.activeCategory === 'men') {
+            // Men tab: only fashion + beauty products for men
+            if (!['fashion', 'beauty'].includes(product.category)) return false;
+            if (!['men', 'unisex'].includes(product.gender)) return false;
+        } else {
+            // For other tabs (beauty, kids, toys, tech), match original category
+            if (product.category !== state.activeCategory) return false;
+        }
+
+        if (!query) return true;
 
         const titleMatch    = product.title.toLowerCase().includes(query);
         const descMatch     = product.description.toLowerCase().includes(query);
         const categoryMatch = product.category.toLowerCase().includes(query);
         const tagsMatch     = product.tags.some(t => t.toLowerCase().includes(query));
         const sourceMatch   = product.source.toLowerCase().includes(query);
+        const genderMatch   = product.gender?.toLowerCase().includes(query);
 
-        return matchesCategory && (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch);
+        return (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch || genderMatch);
     });
 
     renderProducts();

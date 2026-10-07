@@ -1,6 +1,8 @@
 /**
  * KikiDhiv's Finds — Normalized Product Dataset
- * Schema: { id, title, description, category, image, link, source, price, tags[], promptText? }
+ * Schema: { id, title, description, category, image, link, source, price, tags[], promptText?, dateAdded, gender }
+ * gender: 'women' | 'men' | 'unisex' — used for Men/Women tabs
+ * dateAdded: ISO date string — products sort newest-first on the site
  * price: displayed on card, updated periodically as brands adjust (affiliate marketing)
  * tags[] = decorative labels only. Source badges render from `source` field automatically.
  */
@@ -16,10 +18,25 @@ const products = [
         link: 'https://link.amazon/B03s4ReYv',
         source: 'amazon',
         price: 499,
-        tags: ['Party Wear']
+        tags: ['Party Wear'],
+        dateAdded: '2025-09-23',
+        gender: 'men'
     },
 
-    // ======================== FASHION ========================
+    // ======================== FASHION — WOMEN ========================
+    {
+        id: 'fashion-new-02',
+        title: 'Mahedi Anarkali Gown',
+        description: 'Elegant Anarkali gown with beautiful detailing. Perfect for special occasions and festive wear.',
+        category: 'fashion',
+        image: 'images/Mahedi Anarkali Gown.avif',
+        link: 'https://affiliate.meesho.com/collection/Nzk4MzQyOTo6Ojo6OmF1dG9kbQ==',
+        source: 'meesho',
+        price: 562,
+        tags: [],
+        dateAdded: '2026-10-07',
+        gender: 'women'
+    },
     {
         id: 'fashion-18',
         title: 'Floral Printed Kurti Set',
@@ -29,7 +46,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:4320649?p_id=610989326&ext_id=a3rmdq&utm_source=instagram_stories',
         source: 'meesho',
         price: 537,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-19',
@@ -40,7 +59,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:4320218?p_id=610592830&ext_id=a3j4fy&utm_source=instagram_stories',
         source: 'meesho',
         price: 290,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-01',
@@ -51,7 +72,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569530?p_id=391479571&ext_id=6h2rkj&utm_source=instagram_stories',
         source: 'meesho',
         price: 331,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-17',
@@ -62,7 +85,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:4320693?p_id=478735701&ext_id=7x0ytx&utm_source=instagram_stories',
         source: 'meesho',
         price: 326,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-04',
@@ -73,7 +98,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=51428155&ext_id=uma7v&utm_source=instagram_stories',
         source: 'meesho',
         price: 449,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-16',
@@ -84,7 +111,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=959039271&ext_id=fuzjfr&utm_source=instagram_stories',
         source: 'meesho',
         price: 226,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-11',
@@ -95,7 +124,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=305301658&ext_id=51ro9m&utm_source=instagram_stories',
         source: 'meesho',
         price: 387,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-10',
@@ -106,7 +137,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=382937048&ext_id=6bzo48&utm_source=instagram_stories',
         source: 'meesho',
         price: 512,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-07',
@@ -117,7 +150,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=422037264&ext_id=6z9q1c&utm_source=instagram_stories',
         source: 'meesho',
         price: 364,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'fashion-12',
@@ -128,8 +163,12 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=549428777&ext_id=9345yh&utm_source=instagram_stories',
         source: 'meesho',
         price: 344,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
+
+    // ======================== FASHION — MEN ========================
     {
         id: 'fashion-13',
         title: "Men's Striped T-shirt",
@@ -139,7 +178,9 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=570657682&ext_id=9fr6aa&utm_source=instagram_stories',
         source: 'meesho',
         price: 217,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'men'
     },
     {
         id: 'fashion-14',
@@ -150,10 +191,12 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:5569777?p_id=487981536&ext_id=82j4yo&utm_source=instagram_stories',
         source: 'meesho',
         price: 391,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'men'
     },
 
-    // ======================== BEAUTY ========================
+    // ======================== BEAUTY — WOMEN ========================
     {
         id: 'beauty-16',
         title: 'All-in-One Face & Eye Palette',
@@ -163,29 +206,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0C28GD8X3?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d00f05f8ac1af8c2398fd76e9685808c&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 347,
-        tags: []
-    },
-    {
-        id: 'beauty-06',
-        title: 'Electric Scalp Massager',
-        description: 'Rechargeable electric scalp massager for effortless home-spa relaxation. Great for stress relief, hair health, and that feel-good evening routine.',
-        category: 'beauty',
-        image: 'images/Electric Scalp Massager.jpg',
-        link: 'https://www.amazon.in/dp/B0DT693ZPM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=452d09e41d327e33f9c1cd767d5edf07&ref_=as_li_ss_tl',
-        source: 'amazon',
-        price: 799,
-        tags: []
-    },
-    {
-        id: 'tech-02',
-        title: 'Portronics Oria Magnetic Clip-On Selfie Light',
-        description: 'Type-C rechargeable magnetic clip-on selfie light with mirror & stand. Adjustable brightness & colour temperature — a must-have for reels and video calls.',
-        category: 'tech',
-        image: 'images/Trending influencer ligh.jpg',
-        link: 'https://www.amazon.in/dp/B0GLH9GBZC?&linkCode=ll2&tag=kikidhiv-21&linkId=7dcf393fbce4db59fe03a63f69b76536&ref_=as_li_ss_tl',
-        source: 'amazon',
-        price: 1299,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-07',
@@ -196,7 +219,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0BV6JGSDZ?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=1eb683a0457598731ec41d23db631e9c&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 176,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-13',
@@ -207,7 +232,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0DCBGMDPS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b7347bcfb140b2ebe2881d690960be18&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 199,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-11',
@@ -218,7 +245,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0079Z0AMM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=fb6c03159e20debdbaa8ed6da356acea&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 246,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-17',
@@ -229,7 +258,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B07S141T2R?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=467b2b773a4831e21e58ffa7b9bdea2b&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 147,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-18',
@@ -240,7 +271,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0CCJP6Y17?&linkCode=ll2&tag=kikidhiv-21&linkId=298fa6a7429b5f1e40afa1f7a414789f&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 438,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-10',
@@ -251,7 +284,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B07SDQJVQD?&linkCode=ll2&tag=kikidhiv-21&linkId=11d190bf9d059e37e11a6b493fe83ee8&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 277,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-14',
@@ -262,7 +297,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B09GFZRQ4P?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=be5c36ee51497a94ba9ce3aa38b178aa&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 488,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-15',
@@ -273,7 +310,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B09GFZ5VD4?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=5df91f7a7847de339094ca6fc44a141b&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 413,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-12',
@@ -284,7 +323,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B07D2Q52KF?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=a1ffdffec7400d5eb3717cc8a172355e&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 207,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-09',
@@ -295,7 +336,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0G7FKJJDC?&linkCode=ll2&tag=kikidhiv-21&linkId=4bf71ba8c981afbb506a80a8035bad9c&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 139,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-19',
@@ -306,7 +349,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B006LXC4SG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=b227e0bbf873a391e06563a4e01b8339&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 219,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-08',
@@ -317,7 +362,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0CVS2HFKJ?&linkCode=ll2&tag=kikidhiv-21&linkId=1d563f8f88952b83260d293df4109f3d&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 107,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-05',
@@ -328,7 +375,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0DVSNG7NC?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=549b0bccb31779ce8d405b3b0ffa4f5b&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 399,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-02',
@@ -339,18 +388,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B09Y58XSZQ?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=a67afad7bd1ecb0e2506374d7b8af5bf&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 117,
-        tags: []
-    },
-    {
-        id: 'beauty-03',
-        title: 'NIVEA MEN Deep Impact Roll-On',
-        description: 'Long-lasting freshness with activated black carbon for powerful body odour control.',
-        category: 'beauty',
-        image: 'images/NIVEA MEN Deep Impact Roll-On.jpg',
-        link: 'https://www.amazon.in/dp/B07D9GF1NW?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d602da392d70c816108d8e6bc8bffacf&ref_=as_li_ss_tl',
-        source: 'amazon',
-        price: 137,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
     },
     {
         id: 'beauty-01',
@@ -361,7 +401,39 @@ const products = [
         link: 'https://www.meesho.com/af_invite/47638213:instagram_stories:11562601?p_id=844886305&ext_id=dz0ug1&utm_source=instagram_stories',
         source: 'meesho',
         price: 68,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'women'
+    },
+
+    // ======================== BEAUTY — MEN ========================
+    {
+        id: 'beauty-03',
+        title: 'NIVEA MEN Deep Impact Roll-On',
+        description: 'Long-lasting freshness with activated black carbon for powerful body odour control.',
+        category: 'beauty',
+        image: 'images/NIVEA MEN Deep Impact Roll-On.jpg',
+        link: 'https://www.amazon.in/dp/B07D9GF1NW?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=d602da392d70c816108d8e6bc8bffacf&ref_=as_li_ss_tl',
+        source: 'amazon',
+        price: 137,
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'men'
+    },
+
+    // ======================== BEAUTY — UNISEX ========================
+    {
+        id: 'tech-03',
+        title: 'Electric Scalp Massager',
+        description: 'Rechargeable electric scalp massager for effortless home-spa relaxation. Great for stress relief, hair health, and that feel-good evening routine.',
+        category: 'tech',
+        image: 'images/Electric Scalp Massager.jpg',
+        link: 'https://www.amazon.in/dp/B0DT693ZPM?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=452d09e41d327e33f9c1cd767d5edf07&ref_=as_li_ss_tl',
+        source: 'amazon',
+        price: 799,
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
 
     // ======================== TOYS ========================
@@ -374,7 +446,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0G49DZHWK?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=89cfe7419b5338e9c0fbcf68562371d1&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 2899,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'toys-03',
@@ -385,7 +459,9 @@ const products = [
         link: 'https://amzn.to/4e5BbxI',
         source: 'amazon',
         price: 669,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'toys-02',
@@ -396,7 +472,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B09QCYZT4S?&linkCode=ll2&tag=kikidhiv-21&linkId=5e6c00dd2cdddf73adac337fa8e7eab9&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 499,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'toys-04',
@@ -407,7 +485,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0DTV7QTFB?&linkCode=ll2&tag=kikidhiv-21&linkId=cf167a731b9675ea6ff9f0fbb3a8bd7f&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 195,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
 
     // ======================== KIDS & STATIONERY ========================
@@ -420,7 +500,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0GKVGKSR8?&linkCode=ll2&tag=kikidhiv-21&linkId=e9cd0834e9aba81a6251856a617412dd&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 259,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'kids-06',
@@ -431,7 +513,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0FDB91QMS?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=99a0eb97acf817cb0b6e98a02d300813&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 200,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'kids-03',
@@ -442,7 +526,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0GRJ4GCSG?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=e885dc09ae1d96e33911301d41e47dc4&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 249,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'kids-01',
@@ -453,10 +539,25 @@ const products = [
         link: 'https://www.amazon.in/dp/B07NSQFTLH?&linkCode=ll2&tag=kikidhiv-21&linkId=14c89bd1243eb02a686de4cdec6360a3&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 199,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
 
     // ======================== TECH ========================
+    {
+        id: 'tech-02',
+        title: 'Portronics Oria Magnetic Clip-On Selfie Light',
+        description: 'Type-C rechargeable magnetic clip-on selfie light with mirror & stand. Adjustable brightness & colour temperature — a must-have for reels and video calls.',
+        category: 'tech',
+        image: 'images/Trending influencer ligh.jpg',
+        link: 'https://www.amazon.in/dp/B0GLH9GBZC?&linkCode=ll2&tag=kikidhiv-21&linkId=7dcf393fbce4db59fe03a63f69b76536&ref_=as_li_ss_tl',
+        source: 'amazon',
+        price: 1299,
+        tags: [],
+        dateAdded: '2025-09-23',
+        gender: 'unisex'
+    },
     {
         id: 'tech-01',
         title: '20-in-1 Device Cleaning Kit',
@@ -466,7 +567,9 @@ const products = [
         link: 'https://www.amazon.in/dp/B0F3P1PZ9D?th=1&linkCode=ll2&tag=kikidhiv-21&linkId=8368fae06fb5bd8a7970e4b151d4625d&ref_=as_li_ss_tl',
         source: 'amazon',
         price: 479,
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
 
     // ======================== PROMPTS ========================
@@ -476,10 +579,12 @@ const products = [
         description: 'Ultra-realistic cinematic neon silhouette portrait for a young romantic couple against a black background with electric-blue rim light.',
         category: 'prompts',
         image: 'prompt_images/neon_portrait_prompt.PNG',
-        link: '/prompt_txt_files/neon_portrait_prompt.txt',
+        link: 'prompt_txt_files/neon_portrait_prompt.txt',
         source: 'prompt',
         promptText: '--ar 9:16 --v 6.1 --style raw --no blur,distortion,deformation\n\nHyper-realistic 3-panel cinematic portrait, vertical 9:16 aspect ratio, 8K resolution. A young romantic couple standing intimately together against a pure black background. The scene is dramatically lit with electric-blue rim lighting that traces their silhouettes with a neon glow effect. The rim light creates a stunning halo effect around both figures. The lighting is moody and atmospheric with volumetric light beams. The couple is wearing elegant evening attire. The portrait has a cinematic, dramatic quality reminiscent of high-end fashion photography. Ultra-detailed skin texture, natural skin tones, soft focus background, professional color grading. Preserve exact face and body features exactly as described. Sharp focus on eyes, studio-quality lighting setup with blue LED accent lights.',
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     },
     {
         id: 'prompt-red-saree',
@@ -490,15 +595,20 @@ const products = [
         link: 'prompt_txt_files/Red_saree_prompt.txt',
         source: 'prompt',
         promptText: '--ar 9:16 --v 6.1 --style raw --no blur,distortion,deformation\n\nHyper-realistic 3-panel cinematic portrait, vertical 9:16 aspect ratio, 8K resolution. A stunning young Indian woman wearing a vibrant red traditional saree with golden border work. She is posing gracefully with traditional hand gestures (mudra). The background features a subtle Indic temple or Heritage palace interior with warm ambient lighting. The portrait showcases intricate details of the saree fabric, gold jewelry, and traditional bindi. The lighting is soft and flattering with warm golden hour tones. Professional fashion photography style with rich colors and sharp details. Ultra-detailed fabric texture, realistic skin tones, perfect composition. The subject has a confident, elegant expression. Preserve exact face and body features exactly as described.',
-        tags: []
+        tags: [],
+        dateAdded: '2025-10-01',
+        gender: 'unisex'
     }
 ];
+
+// Sort newest-first so new products always appear at position 1
+products.sort((a, b) => (b.dateAdded || '').localeCompare(a.dateAdded || ''));
 
 // Category definitions with labels and emoji
 const categories = [
     { id: 'all',     label: 'All',               emoji: '✨' },
-    { id: 'fashion', label: 'Fashion',            emoji: '👗' },
-    { id: 'beauty',  label: 'Beauty',             emoji: '💄' },
+    { id: 'women',   label: 'Women',             emoji: '👩' },
+    { id: 'men',     label: 'Men',               emoji: '👨' },
     { id: 'kids',    label: 'Kids & Stationery',  emoji: '🎒' },
     { id: 'toys',    label: 'Toys',               emoji: '🧸' },
     { id: 'tech',    label: 'Tech',               emoji: '💻' },
