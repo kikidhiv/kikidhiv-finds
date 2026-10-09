@@ -170,6 +170,19 @@ const products = [
 
     // ======================== FASHION — MEN ========================
     {
+        id: 'fashion-new-03',
+        title: "el cielo Men Tailored Wrinkle Free Pleated Pant",
+        description: 'Tailored wrinkle-free pleated gurkha pant for men. Sophisticated, comfortable, and perfect for office to evening wear. Premium fabric with crisp pleats that hold their shape.',
+        category: 'fashion',
+        image: 'images/El_Cielo_black_pant.jpg',
+        link: 'https://www.myntra.com/mailers/trousers/el-cielo/el-cielo-men-tailored-wrinkle-free-pleated-gurkha-pant/42043991/buy?utm_source=ugc_affiliate&utm_medium=social_share_pdp&utm_campaign=YOruRC2St53ZC7QJ&shared=true&affiliate_id=YOruRC2St53ZC7QJ',
+        source: 'myntra',
+        price: 698,
+        tags: [],
+        dateAdded: '2026-10-09',
+        gender: 'men'
+    },
+    {
         id: 'fashion-13',
         title: "Men's Striped T-shirt",
         description: "Trending striped t-shirt for men. Clean lines and a modern fit that works from brunch to hangouts.",
