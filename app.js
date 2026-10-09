@@ -233,6 +233,8 @@ function createProductCardHTML(product, index) {
         sourceBadgeHTML = '<span class="badge badge-source-amazon">Amazon</span>';
     } else if (product.source === 'meesho') {
         sourceBadgeHTML = '<span class="badge badge-source-meesho">Meesho</span>';
+    } else if (product.source === 'myntra') {
+        sourceBadgeHTML = '<span class="badge badge-source-myntra">Myntra</span>';
     } else if (product.source === 'prompt') {
         sourceBadgeHTML = '<span class="badge badge-source-prompt">AI Prompt</span>';
     }

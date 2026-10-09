@@ -37,6 +37,8 @@
     --tag-amazon-text: #131921;
     --tag-meesho-bg: #8E0E68;
     --tag-meesho-text: #FFFFFF;
+    --tag-myntra-bg: #FF3F6C;
+    --tag-myntra-text: #FFFFFF;
     --tag-prompt-bg: #3B82F6;
     --tag-prompt-text: #FFFFFF;
 
@@ -338,6 +340,11 @@ body {
 .badge-source-meesho {
     background-color: var(--tag-meesho-bg);
     color: var(--tag-meesho-text);
+}
+
+.badge-source-myntra {
+    background-color: var(--tag-myntra-bg);
+    color: var(--tag-myntra-text);
 }
 
 .badge-source-prompt {
