@@ -42,12 +42,12 @@
     --tag-prompt-bg: #3B82F6;
     --tag-prompt-text: #FFFFFF;
 
-    --tag-highlight-bg: #DEF7EC;
-    --tag-highlight-text: #03543F;
-    --tag-daily-bg: #EDEBFE;
-    --tag-daily-text: #5521B5;
-    --tag-worth-bg: #FEF08A;
-    --tag-worth-text: #713F12;
+    --tag-highlight-bg: rgba(6, 78, 59, 0.85);
+    --tag-highlight-text: #FFFFFF;
+    --tag-daily-bg: rgba(85, 33, 181, 0.85);
+    --tag-daily-text: #FFFFFF;
+    --tag-worth-bg: rgba(180, 83, 9, 0.85);
+    --tag-worth-text: #FFFFFF;
 }
 
 /* Dark Theme Palette (Deep Charcoal & Slate) */
@@ -78,12 +78,48 @@
     --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
     --card-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.6);
 
-    --tag-highlight-bg: rgba(6, 95, 70, 0.35);
-    --tag-highlight-text: #6EE7B7;
-    --tag-daily-bg: rgba(107, 33, 168, 0.35);
-    --tag-daily-text: #D8B4FE;
-    --tag-worth-bg: rgba(180, 83, 9, 0.35);
-    --tag-worth-text: #FDE047;
+    --tag-highlight-bg: rgba(167, 243, 208, 0.25);
+    --tag-highlight-text: #FFFFFF;
+    --tag-daily-bg: rgba(233, 213, 255, 0.25);
+    --tag-daily-text: #FFFFFF;
+    --tag-worth-bg: rgba(254, 240, 138, 0.25);
+    --tag-worth-text: #FFFFFF;
+}
+
+/* Dark Theme Palette (Deep Charcoal & Slate) */
+.dark {
+    --bg-page: #121417;
+    --bg-surface: #1A1D23;
+    --bg-surface-elevated: #22262E;
+    --bg-subtle: #252A33;
+    --bg-glass: rgba(18, 20, 23, 0.88);
+
+    --text-primary: #F3F4F6;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-medium: rgba(255, 255, 255, 0.15);
+
+    --accent-primary: #E07A5F;
+    --accent-primary-hover: #EB8D74;
+    --accent-primary-text: #FFFFFF;
+
+    --pill-bg: #1A1D23;
+    --pill-border: rgba(255, 255, 255, 0.1);
+    --pill-text: #9CA3AF;
+    --pill-active-bg: #F3F4F6;
+    --pill-active-text: #121417;
+
+    --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    --card-shadow-hover: 0 16px 36px -4px rgba(0, 0, 0, 0.6);
+
+    --tag-highlight-bg: #E07A5F;
+    --tag-highlight-text: #FFFFFF;
+    --tag-daily-bg: #7C3AED;
+    --tag-daily-text: #FFFFFF;
+    --tag-worth-bg: #D97706;
+    --tag-worth-text: #FFFFFF;
 }
 
 /* --- Base & Reset --- */
@@ -325,11 +361,17 @@ body {
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 0.25rem 0.5rem;
+    padding: 0.3rem 0.65rem;
     border-radius: 9999px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .badge {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .badge-source-amazon {

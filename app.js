@@ -12,7 +12,7 @@ const state = {
     activeCategory: 'all',
     searchQuery: '',
     isDark: false,
-    filteredProducts: [...products]
+    filteredProducts: [...products].sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded))
 };
 
 // ==========================================================================
@@ -101,18 +101,18 @@ function renderCategoryPills() {
         // - other categories: their original category products
         let count = 0;
         if (cat.id === 'all') {
-            count = products.filter(p => p.category !== 'prompts').length;
+            count = products.length;
         } else if (cat.id === 'women') {
-            // Count only fashion + beauty products for women (matches filtering logic)
+            // Count only fashion + beauty + women products for women
             count = products.filter(p =>
-                ['fashion', 'beauty'].includes(p.category) &&
-                ['women', 'unisex'].includes(p.gender)
+                ['fashion', 'beauty', 'women'].includes(p.category) &&
+                (p.category === 'women' || ['women', 'unisex'].includes(p.gender))
             ).length;
         } else if (cat.id === 'men') {
-            // Count only fashion + beauty products for men (matches filtering logic)
+            // Count only fashion + beauty + men products for men
             count = products.filter(p =>
-                ['fashion', 'beauty'].includes(p.category) &&
-                ['men', 'unisex'].includes(p.gender)
+                ['fashion', 'beauty', 'men'].includes(p.category) &&
+                (p.category === 'men' || ['men', 'unisex'].includes(p.gender))
             ).length;
         } else {
             count = products.filter(p => p.category === cat.id).length;
@@ -159,13 +159,9 @@ function applyFilters() {
     const query = state.searchQuery.trim().toLowerCase();
 
     state.filteredProducts = products.filter(product => {
-        // Handle "All" tab — includes all products except prompts
+        // Handle "All" tab — includes all products including prompts
         if (state.activeCategory === 'all') {
-            // For "All", include all products except prompts
-            if (product.category === 'prompts') return false;
-
-            // For the query matching, we need to search across all relevant fields including gender-based search
-            if (!query) return true; // Already filtered by category above
+            if (!query) return true; // Include all products when no search query
 
             const titleMatch    = product.title.toLowerCase().includes(query);
             const descMatch     = product.description.toLowerCase().includes(query);
@@ -179,15 +175,15 @@ function applyFilters() {
 
         // Handle gender-specific tabs — ONLY fashion and beauty are split by gender
         if (state.activeCategory === 'women') {
-            // Women tab: only fashion + beauty products for women
-            if (!['fashion', 'beauty'].includes(product.category)) return false;
-            if (!['women', 'unisex'].includes(product.gender)) return false;
+            // Women tab: only fashion + beauty + women products for women
+            if (!['fashion', 'beauty', 'women'].includes(product.category)) return false;
+            if (product.category !== 'women' && !['women', 'unisex'].includes(product.gender)) return false;
         } else if (state.activeCategory === 'men') {
-            // Men tab: only fashion + beauty products for men
-            if (!['fashion', 'beauty'].includes(product.category)) return false;
-            if (!['men', 'unisex'].includes(product.gender)) return false;
+            // Men tab: only fashion + beauty + men products for men
+            if (!['fashion', 'beauty', 'men'].includes(product.category)) return false;
+            if (product.category !== 'men' && !['men', 'unisex'].includes(product.gender)) return false;
         } else {
-            // For other tabs (beauty, kids, toys, tech), match original category
+            // For other tabs (kids, toys, accessories, etc.), match original category
             if (product.category !== state.activeCategory) return false;
         }
 
@@ -202,6 +198,9 @@ function applyFilters() {
 
         return (titleMatch || descMatch || categoryMatch || tagsMatch || sourceMatch || genderMatch);
     });
+
+    // Sort by dateAdded descending (latest date on top)
+    state.filteredProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
 
     renderProducts();
     updateResultsMeta();
@@ -290,9 +289,40 @@ function createProductCardHTML(product, index) {
            </div>`
         : '';
 
-    // Regular product card
-    return `
-        <article class="product-card" data-category="${product.category}" data-id="${product.id}" style="animation-delay: ${Math.min(index * 0.03, 0.3)}s">
+    // Handle Image or Images Carousel
+    let imageContainerHTML = '';
+    if (Array.isArray(product.images) && product.images.length > 0) {
+        const slides = product.images.map((img, idx) => `
+            <img
+                src="${img}"
+                alt="${product.title.replace(/"/g, '&quot;')}"
+                loading="lazy"
+                class="product-image carousel-slide ${idx === 0 ? 'block' : 'hidden'}"
+                data-index="${idx}"
+                onerror="this.onerror=null; this.src='${placeholderURL}';"
+            />
+        `).join('');
+
+        const dots = product.images.map((_, idx) => `
+            <span class="carousel-dot ${idx === 0 ? 'bg-white' : 'bg-white/50'} w-2 h-2 rounded-full inline-block cursor-pointer transition-all" data-index="${idx}" onclick="window.slideCard(this, ${idx})"></span>
+        `).join('');
+
+        imageContainerHTML = `
+            <div class="product-image-container relative group overflow-hidden">
+                ${tagsHTML ? `<div class="badge-container-top z-10">${tagsHTML}</div>` : ''}
+                <div class="badge-container-bottom z-10">${sourceBadgeHTML}</div>
+                <div class="carousel-track w-full h-full relative">
+                    ${slides}
+                </div>
+                <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20" onclick="window.slideCardPrev(this)">‹</button>
+                <button type="button" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20" onclick="window.slideCardNext(this)">›</button>
+                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 bg-black/30 px-2 py-1 rounded-full backdrop-blur-sm">
+                    ${dots}
+                </div>
+            </div>
+        `;
+    } else {
+        imageContainerHTML = `
             <div class="product-image-container">
                 ${tagsHTML ? `<div class="badge-container-top">${tagsHTML}</div>` : ''}
                 <div class="badge-container-bottom">${sourceBadgeHTML}</div>
@@ -304,6 +334,13 @@ function createProductCardHTML(product, index) {
                     onerror="this.onerror=null; this.src='${placeholderURL}';"
                 />
             </div>
+        `;
+    }
+
+    // Regular product card
+    return `
+        <article class="product-card" data-category="${product.category}" data-id="${product.id}" style="animation-delay: ${Math.min(index * 0.03, 0.3)}s">
+            ${imageContainerHTML}
             <div class="product-content">
                 <span class="product-category-label">${product.category}</span>
                 <h3 class="product-title" title="${product.title.replace(/"/g, '&quot;')}">${product.title}</h3>
@@ -467,6 +504,60 @@ function escapeHTML(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
 }
+
+// ==========================================================================
+// Image Carousel Helper Functions
+// ==========================================================================
+window.slideCard = function(el, targetIndex) {
+    const container = el.closest('.product-image-container');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    const dots = container.querySelectorAll('.carousel-dot');
+
+    slides.forEach((slide, i) => {
+        if (i === targetIndex) {
+            slide.classList.remove('hidden');
+            slide.classList.add('block');
+        } else {
+            slide.classList.remove('block');
+            slide.classList.add('hidden');
+        }
+    });
+
+    dots.forEach((dot, i) => {
+        if (i === targetIndex) {
+            dot.classList.remove('bg-white/50');
+            dot.classList.add('bg-white');
+        } else {
+            dot.classList.remove('bg-white');
+            dot.classList.add('bg-white/50');
+        }
+    });
+};
+
+window.slideCardNext = function(btn) {
+    const container = btn.closest('.product-image-container');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    let currentIndex = 0;
+    slides.forEach((slide, i) => {
+        if (!slide.classList.contains('hidden')) currentIndex = i;
+    });
+    const nextIndex = (currentIndex + 1) % slides.length;
+    window.slideCard(btn, nextIndex);
+};
+
+window.slideCardPrev = function(btn) {
+    const container = btn.closest('.product-image-container');
+    if (!container) return;
+    const slides = container.querySelectorAll('.carousel-slide');
+    let currentIndex = 0;
+    slides.forEach((slide, i) => {
+        if (!slide.classList.contains('hidden')) currentIndex = i;
+    });
+    const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+    window.slideCard(btn, prevIndex);
+};
 
 // ==========================================================================
 // Debounce Utility
